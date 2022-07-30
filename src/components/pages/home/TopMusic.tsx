@@ -30,7 +30,7 @@ const TopMusic = () => {
                 />
                 <div className="flex flex-col justify-between space-y-2">
                   <span className="font-bold line-clamp-1 text-xs lg:text-base">
-                    Nơi Đây Có Anh
+                    Nơi Này Có Anh
                   </span>
                   <span className="text-[10px] lg:text-xs">Sơn Tùng MTP</span>
                 </div>
