@@ -41,7 +41,9 @@ const ControlMusic = () => {
           <div>
             <img
               src="karik.jpeg"
-              className="w-14 h-14 rounded-full object-cover"
+              className={`w-14 h-14 rounded-full object-cover animate-spin-slow ${
+                !play && "animation-pause"
+              }`}
               alt=""
             />
           </div>
@@ -88,15 +90,15 @@ const ControlMusic = () => {
               <div className="flex h-10 w-10 rounded-full bg-third justify-center items-center text-white bg-gradient-to-r from-[rgb(255,85,62)] to-[rgb(255,0,101)]">
                 <ChevronLeftIcon className="w-5 h-5" />
               </div>
-              <div className="flex h-14 w-14 mx-2 rounded-full bg-third justify-center items-center text-white bg-gradient-to-r from-[rgb(255,85,62)] to-[rgb(255,0,101)]">
+              <div className="flex h-14 w-14 mx-2 rounded-full bg-third justify-center items-center text-white bg-gradient-to-r from-[rgb(255,85,62)] to-[rgb(255,0,101)] focus:outline-none">
                 {!play ? (
                   <PlayIcon
-                    className="w8 h-8"
+                    className="w8 h-8 focus:outline-none"
                     onClick={handlePlayAndPauseAudio}
                   />
                 ) : (
                   <PauseIcon
-                    className="w8 h-8"
+                    className="w8 h-8 focus:outline-none"
                     onClick={handlePlayAndPauseAudio}
                   />
                 )}
