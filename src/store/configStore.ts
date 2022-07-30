@@ -24,6 +24,8 @@ export type RootState = ReturnType<typeof rootReducers>;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-await store.dispatch(fetchUserAction() as any);
+(async () => {
+  await store.dispatch(fetchUserAction() as any);
+})();
 
 export default store;
