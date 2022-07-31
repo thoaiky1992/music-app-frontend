@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docker:build": "docker build -t react-nginx . && docker run -d --name react_app --rm -it -p 3000:80 react-nginx",
+    "docker:stop_container": "docker container stop react_app",
+    "docker:remove_container": "docker container rm react_app",
+    "docker:remove_image": "docker rmi react-nginx",
+    "docker:deploy": "yarn docker:stop_container || true && yarn docker:remove_container || true && yarn docker:remove_image && yarn docker:build"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",

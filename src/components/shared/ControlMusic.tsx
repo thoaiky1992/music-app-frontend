@@ -14,7 +14,9 @@ const audio = new Audio("anh-la-cua-em.mp3");
 
 const ControlMusic = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
+
   const [play, setPlay] = useState<boolean>(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const progressRef = useRef<any>(null);
   const progressMobileRef = useRef<any>(null);
@@ -22,17 +24,27 @@ const ControlMusic = () => {
     if (isMobile) progressMobileRef.current.value = e.target.value;
     else progressRef.current.value = e.target.value;
   };
-  const handlePlayAndPauseAudio = () => {
+  const handlePlayAndPauseAudio = async () => {
+    // audioRef.current?.children[0].setAttribute(
+    //   "src",
+    //   "http://localhost:3000/chia-doi-con-duong.mp3"
+    // );
+    // audioRef.current?.load();
+    // audioRef.current?.play();
+
     if (play) {
-      audio.pause();
+      audioRef.current?.pause();
       setPlay(false);
     } else {
-      audio.play();
+      audioRef.current?.play();
       setPlay(true);
     }
   };
   return (
     <div className="h-[150px] md:h-[80px] w-full fixed z-50 bottom-0 left-0 bg-primary flex justify-center shadow shadow-text-2">
+      <audio ref={audioRef} className="hidden">
+        <source src="anh-la-cua-em.mp3" />
+      </audio>
       <div className="absolute left-0 -top-1 lg:-top-2 w-full progress-area flex-1 h-1 lg:h-2 rounded-lg bg-text-2">
         <div className="progress-bar w-1/2 h-full bg-gradient-to-r from-[rgb(255,85,62)] to-[rgb(255,0,101)] rounded-lg"></div>
       </div>
