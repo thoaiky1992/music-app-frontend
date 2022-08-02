@@ -1,10 +1,11 @@
+import { FETCH_USER } from "@/constants";
 import { UserEntity } from "@/entities/user.enity";
-import { FETCH_USER, UserActionType } from "../types/user.type";
+import { UserActionType } from "../types/user.type";
 
-export interface UserReducerProps {
+export interface IUserReducer {
   user: UserEntity | undefined | null;
 }
-const initialState: UserReducerProps = {
+const initialState: IUserReducer = {
   user: null,
 };
 

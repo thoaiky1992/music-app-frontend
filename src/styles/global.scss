@@ -2,7 +2,7 @@
 
 @import "variables";
 @import "mixins";
-
+@import "magic";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -74,6 +74,15 @@ body {
 .slider progress::-webkit-progress-value {
   background: #ff404e;
 }
+
+input[type="checkbox"]:checked:after {
+  content: "✔";
+  color: white;
+  position: absolute;
+  top: -5px;
+  left: 0;
+}
+
 @media screen and (max-width: 480px) {
   .slider {
     width: 100px;

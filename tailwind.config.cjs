@@ -24,6 +24,30 @@ module.exports = {
       },
       animation: {
         "spin-slow": "spin 3s linear infinite",
+        scale_enter: "scale_enter 400ms ease-in-out forwards",
+        scale_leave: "scale_leave 300ms ease-in-out forwards",
+      },
+      keyframes: {
+        scale_enter: {
+          "0%": {
+            opacity: "0",
+            transform: "scale(0) rotate(0deg)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "scale(1) rotate(360deg)",
+          },
+        },
+        scale_leave: {
+          "0%": {
+            opacity: "1",
+            transform: "scale(1) rotate(360deg)",
+          },
+          "100%": {
+            opacity: "0",
+            transform: "scale(0) rotate(0deg)",
+          },
+        },
       },
     },
     screens: {

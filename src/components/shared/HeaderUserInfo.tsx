@@ -3,9 +3,11 @@ import { Fragment } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { LogoutIcon, UserIcon } from "@heroicons/react/outline";
 import NarutoImg from "@/assets/images/naruto.png";
-import { RootState, useAppSelector } from "@/store/configStore";
+import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
+import { openModalLoginAction } from "@/store/actions/modal-login.actions";
 const HeaderUserInfo = () => {
   const userStore = useAppSelector((state: RootState) => state.user);
+  const dispatch = useAppDispatch();
   return (
     <div className="user-info hidden lg:flex items-center">
       {userStore?.user ? (
@@ -61,7 +63,12 @@ const HeaderUserInfo = () => {
           </Transition>
         </Menu>
       ) : (
-        <div className="cursor-pointer text-text-2">Đăng nhập</div>
+        <div
+          className="cursor-pointer text-text-2"
+          onClick={() => dispatch(openModalLoginAction())}
+        >
+          Đăng nhập
+        </div>
       )}
     </div>
   );

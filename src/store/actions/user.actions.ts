@@ -1,6 +1,7 @@
 import axiosInstance from "@/config/axios";
+import { FETCH_USER } from "@/constants";
 import { Dispatch } from "redux";
-import { FETCH_USER, UserActionType } from "../types/user.type";
+import { UserActionType } from "../types/user.type";
 
 export const fetchUserAction =
   () => async (dispatch: Dispatch<UserActionType>) => {

@@ -10,9 +10,10 @@ import {
 } from "@heroicons/react/outline";
 import { Dialog } from "@headlessui/react";
 import { FC, useRef, useState } from "react";
-import { RootState, useAppSelector } from "@/store/configStore";
+import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import NarutoImg from "@/assets/images/naruto.png";
 import { useStore } from "react-redux";
+import { openModalLoginAction } from "@/store/actions/modal-login.actions";
 
 interface DrawerMobileProps {
   showSidebar: boolean;
@@ -27,6 +28,7 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
   const sidebarRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const userStore = useAppSelector((state: RootState) => state.user);
+  const dispatch = useAppDispatch();
   const handleSidebarClose = () => {
     sidebarRef.current?.classList.remove("slideLeftReturn");
     sidebarRef.current?.classList.add("slideLeft");
@@ -35,6 +37,13 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
 
     setTimeout(() => {
       setShowSidebar(false);
+    }, 400);
+  };
+
+  const handleOpenModalLogin = () => {
+    handleSidebarClose();
+    setTimeout(() => {
+      dispatch(openModalLoginAction());
     }, 400);
   };
 
@@ -82,8 +91,7 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
           </div>
           <div className="w-full mx-5 my-10 lg:m-10 flex-1 flex flex-col">
             <div className="flex-1 flex flex-col">
-              <h1 className="uppercase text-text-2 font-bold">Browse Music</h1>
-              <div className="flex items-center text-high-light mt-10">
+              <div className="flex items-center text-high-light">
                 <HomeIcon className="w-5 h-5 mr-5" />
                 <span className="mt-1">Home</span>
               </div>
@@ -99,14 +107,24 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
                 <HeartIcon className="w-5 h-5 mr-5" />
                 <span className="mt-[1px]">Favorite</span>
               </div>
-            </div>
-            <div className="flex items-center">
+              <div className="w-full my-10">
+                <div className="border-b-[1px] border-text-1 w-[80%]"></div>
+              </div>
+
               {userStore?.user ? (
-                <LogoutIcon className="w-5 h-5 mr-5" />
+                <div className="flex items-center">
+                  <LogoutIcon className="w-5 h-5 mr-5" />
+                  <h1>Logout</h1>
+                </div>
               ) : (
-                <LoginIcon className="w-5 h-5 mr-5" />
+                <div
+                  className="flex items-center"
+                  onClick={handleOpenModalLogin}
+                >
+                  <LoginIcon className="w-5 h-5 mr-5" />
+                  <h1>Login</h1>
+                </div>
               )}
-              <h1>{userStore?.user ? "Logout" : "Login"}</h1>
             </div>
           </div>
         </div>

@@ -6,7 +6,6 @@ import {
 import { history } from "./config/history";
 
 import "@/styles/global.scss";
-import "@/styles/magic.min.css";
 import "animate.css";
 import "swiper/css";
 
