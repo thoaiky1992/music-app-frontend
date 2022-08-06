@@ -52,15 +52,12 @@ const ControlBar = () => {
    * hanlde Play Song with current index
    */
   const handlePlayCurrentSong = () => {
-    if (audioRef.current && progressBarRef.current) {
+    if (audioRef.current) {
       audioRef.current.children[0].setAttribute(
         "src",
         playlistStore.list[playlistStore.index].src
       );
       audioRef.current.load();
-      progressBarRef.current.handleUpdateProgressWith(
-        (audioRef.current.currentTime / audioRef.current.duration) * 100
-      );
       if (playlistStore.isPlay) {
         audioRef.current.play();
       }

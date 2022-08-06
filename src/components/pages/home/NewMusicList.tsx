@@ -91,7 +91,9 @@ const NewMusicList: FC<NewMusicListProps> = ({ musics }) => {
               className="h-[150px] md:h-[200px] object-cover rounded-lg"
             />
           </div>
-          <h1 className="mt-1 px-1 text-baseline-clamp-2">{song.title}</h1>
+          <h1 className="mt-1 px-1 text-sm lg:text-base line-clamp-2">
+            {song.title}
+          </h1>
           <span className="text-xs px-1 line-clamp-1">{song.artists}</span>
         </SwiperSlide>
       ))}

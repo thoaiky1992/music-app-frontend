@@ -17,7 +17,7 @@ const TopMusic = () => {
   }, []);
 
   return (
-    <div className="w-full mt-10">
+    <div className="w-full mt-5 lg:mt-10">
       <h1 className="text-2xl">Top Music</h1>
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 mt-2">
         <div className="top-music-1 w-full flex flex-col lg:pr-1">
