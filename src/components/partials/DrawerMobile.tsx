@@ -14,7 +14,10 @@ import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import { useStore } from "react-redux";
 import { openModalLoginAction } from "@/store/actions/modal-login.actions";
 import { userLogoutAction } from "@/store/actions/user.actions";
-
+import classNames from "classnames";
+import { MdCategory } from "react-icons/md";
+import { DRAWER_LIST, UPDATE_IS_OPEN_PLAY_PLIST_MODAL } from "@/constants";
+import { NavLink } from "react-router-dom";
 interface DrawerMobileProps {
   showSidebar: boolean;
   setShowSidebar: Function;
@@ -47,18 +50,44 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
     }, 400);
   };
 
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case "home":
+        return <HomeIcon className="w-5 h-5 mr-5" />;
+      case "music":
+        return <MusicNoteIcon className="w-5 h-5 mr-5" />;
+      case "list":
+        return <ClipboardListIcon className="w-5 h-5 mr-5" />;
+      case "like":
+        return <HeartIcon className="w-5 h-5 mr-5" />;
+      case "genre":
+        return <MdCategory className="w-5 h-5 mr-5" />;
+      default:
+        return <HomeIcon className="w-5 h-5 mr-5" />;
+    }
+  };
+
+  const handleDirection = () => {
+    handleSidebarClose();
+    dispatch({
+      type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
+      payload: { newIsOpen: false },
+    });
+  };
+
   return (
     <Dialog open={showSidebar} onClose={handleSidebarClose}>
       <Dialog.Overlay
         ref={overlayRef}
-        className="animate__fadeIn animate__animated animate__faster fixed flex inset-0 z-[100]"
+        className="animate__fadeIn animate__animated animate__faster fixed flex inset-0 z-[99999]"
         aria-hidden="true"
       >
         <div
           ref={sidebarRef}
-          className={`${
-            showSidebar && "slideLeftReturn"
-          } magictime fixed flex flex-col w-[250px] bg-primary lg:bg-transparent h-screen shadow-lg shadow-text-1 z-50 text-text-2`}
+          className={classNames(
+            "magictime fixed flex flex-col w-[250px] bg-primary lg:bg-transparent h-screen shadow-lg shadow-text-1 z-50 text-text-2",
+            { slideLeftReturn: showSidebar }
+          )}
         >
           <div className="w-full flex justify-end p-2 absolute top-0 right-0">
             <div
@@ -89,25 +118,25 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
           <div className="w-full flex justify-center">
             <div className="border-b-[1px] border-text-1 w-[80%]"></div>
           </div>
-          <div className="w-full mx-5 my-10 lg:m-10 flex-1 flex flex-col">
+          <div className="w-full mx-5 my-5 flex-1 flex flex-col">
             <div className="flex-1 flex flex-col">
-              <div className="flex items-center text-high-light">
-                <HomeIcon className="w-5 h-5 mr-5" />
-                <span className="mt-1">Home</span>
-              </div>
-              <div className="flex items-center mt-10">
-                <MusicNoteIcon className="w-5 h-5 mr-5" />
-                <span>Music</span>
-              </div>
-              <div className="flex items-center mt-10">
-                <ClipboardListIcon className="w-5 h-5 mr-5" />
-                <span className="mt-[1px]">Playlist</span>
-              </div>
-              <div className="flex items-center mt-10">
-                <HeartIcon className="w-5 h-5 mr-5" />
-                <span className="mt-[1px]">Favorite</span>
-              </div>
-              <div className="w-full my-10">
+              {DRAWER_LIST.map((item: any, index: number) => (
+                <NavLink
+                  onClick={handleDirection}
+                  key={index}
+                  to={item.href}
+                  className={({ isActive }) =>
+                    classNames(
+                      "flex items-center my-5 hover:text-high-light outline-none",
+                      { "text-high-light": isActive }
+                    )
+                  }
+                >
+                  {getIcon(item.icon)}
+                  <div className="mt-[1px]">{item.title}</div>
+                </NavLink>
+              ))}
+              <div className="w-full my-5">
                 <div className="border-b-[1px] border-text-1 w-[80%]"></div>
               </div>
 

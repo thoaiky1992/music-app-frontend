@@ -1355,6 +1355,11 @@ swiper@^8.3.2:
     dom7 "^4.0.4"
     ssr-window "^4.0.2"
 
+tailwindcss-labeled-groups@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/tailwindcss-labeled-groups/-/tailwindcss-labeled-groups-0.0.2.tgz#476db7315eb3f7d2e46d3b7f81629efc471f29f0"
+  integrity sha512-leOVv9h2K9WDHoXPXVBOmTJgWECVkpVFc/hjrwuqGUEtNxvRvuOtCjenu9ppY+pJtky5INJUqDCNa8pS3AbYmw==
+
 tailwindcss@^3.1.6:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.1.6.tgz#bcb719357776c39e6376a8d84e9834b2b19a49f1"

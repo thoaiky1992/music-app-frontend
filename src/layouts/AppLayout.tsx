@@ -16,7 +16,7 @@ const AppLayout = (props: CustomRouteProps) => {
     <div
       className="font-poppins bg-app w-screen h-screen text-text-1 flex bg-no-repeat bg-cover bg-center
     "
-      style={{ backgroundImage: 'url("footer_bg.png")' }}
+      style={{ backgroundImage: 'url("/footer_bg.png")' }}
     >
       {isMobile ? (
         <DrawerMobile
@@ -26,9 +26,9 @@ const AppLayout = (props: CustomRouteProps) => {
       ) : (
         <DrawerDesktop />
       )}
-      <div className="flex-1 h-full flex flex-col ">
+      <div className="lg:flex-1 h-screen w-screen flex flex-col">
         <Header setShowSidebar={setShowSidebar} />
-        <div className="flex-1 overflow-y-scroll content p-5 lg:mt-0">
+        <div className="lg:flex-1 content p-5 mt-[80px] lg:mt-0 lg:overflow-y-scroll">
           <Outlet />
         </div>
       </div>

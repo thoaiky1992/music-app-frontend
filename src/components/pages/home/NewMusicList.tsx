@@ -8,6 +8,8 @@ import { MusicEntity } from "@/entities/music.entity";
 import { FC } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import { ADD_SONG_TO_PLAY_LIST } from "@/constants";
+import IconPlayingGif from "@/assets/images/icon-playing.gif";
+import classNames from "classnames";
 interface NewMusicListProps {
   musics: Array<MusicEntity>;
 }
@@ -57,8 +59,8 @@ const NewMusicList: FC<NewMusicListProps> = ({ musics }) => {
       }}
     >
       <div className="w-full flex items-center absolute left-0 top-0">
-        <h1 className="text-2xl" onClick={addListToPlayList}>
-          New Music
+        <h1 className="text-xl lg:text-2xl" onClick={addListToPlayList}>
+          Mới cập nhật
         </h1>
         <div className="flex-1 h-[4px] border-t-[1px] border-b-[1px] border-text-1 mx-5"></div>
         <SwiperActionInput type="prev" />
@@ -67,8 +69,8 @@ const NewMusicList: FC<NewMusicListProps> = ({ musics }) => {
       {musics.map((song) => (
         <SwiperSlide key={song._id}>
           <div className="flex flex-col relative group cursor-pointer">
-            <div className="absolute left-0 top-0 h-[150px] md:h-[200px] w-full bg-transparent group-hover:bg-primary opacity-100 group-hover:opacity-50 rounded-lg flex justify-center items-center transition-all ease-in-out"></div>
-            <div className="absolute left-0 top-0 h-[150px] md:h-[200px] w-full bg-transparent rounded-lg flex justify-center items-center opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-300">
+            <div className="absolute z-10 left-0 top-0 h-[150px] md:h-[200px] w-full bg-transparent group-hover:bg-primary opacity-100 group-hover:opacity-50 rounded-lg flex justify-center items-center transition-all ease-in-out"></div>
+            <div className="absolute z-20 left-0 top-0 h-[150px] md:h-[200px] w-full bg-transparent rounded-lg flex justify-center items-center opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-300">
               {playListStore.list[playListStore.index]._id === song._id &&
               playListStore.isPlay ? (
                 <PauseIcon
@@ -82,14 +84,30 @@ const NewMusicList: FC<NewMusicListProps> = ({ musics }) => {
                 />
               )}
             </div>
-            <div className="absolute top-2 right-1 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-300">
+            <figure className="relative z-0 h-[150px] md:h-[200px]">
+              {playListStore.list[playListStore.index]._id === song._id &&
+                playListStore.isPlay && (
+                  <div
+                    className={classNames(
+                      "absolute w-full h-full flex justify-center items-center group-hover:hidden"
+                    )}
+                  >
+                    <img
+                      src={IconPlayingGif}
+                      className="w-4 h-4 lg:w-8 lg:h-8"
+                      alt=""
+                    />
+                  </div>
+                )}
+              <img
+                src={song.image}
+                alt=""
+                className="h-[150px] md:h-[200px] w-full object-cover rounded-lg"
+              />
+            </figure>
+            <div className="absolute z-30 top-2 right-1 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-300">
               <DropDownMusicOptions id={song._id} />
             </div>
-            <img
-              src={song.image}
-              alt=""
-              className="h-[150px] md:h-[200px] object-cover rounded-lg"
-            />
           </div>
           <h1 className="mt-1 px-1 text-sm lg:text-base line-clamp-2">
             {song.title}

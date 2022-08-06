@@ -1,3 +1,5 @@
+import GenreDetailPage from "@/components/pages/genre/detail/GenreDetail";
+import GenrePage from "@/components/pages/genre/Genre";
 import Home from "@/components/pages/home/Home";
 import { ReactElement } from "react";
 
@@ -16,6 +18,16 @@ export const RouteList: CustomRouteProps[] = [
   {
     path: "/",
     element: <Home />,
+    layout: LayoutTypes.APP,
+  },
+  {
+    path: "/the-loai",
+    element: <GenrePage />,
+    layout: LayoutTypes.APP,
+  },
+  {
+    path: "/the-loai/:id",
+    element: <GenreDetailPage />,
     layout: LayoutTypes.APP,
   },
 ];

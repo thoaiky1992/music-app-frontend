@@ -1,9 +1,9 @@
 import axiosInstance from "@/config/axios";
-import { MusicEntity } from "@/entities/music.entity";
+import { GenreEntity } from "@/entities/genre.entity";
 
-export class MusicSerice {
-  private static _instance: MusicSerice;
-  private prefix = "/musics";
+export class GenreService {
+  private static _instance: GenreService;
+  private prefix = "/genres";
   private query = {};
 
   /**
@@ -22,7 +22,7 @@ export class MusicSerice {
    * @returns rows and count
    */
 
-  public async getMany(): Promise<{ rows: MusicEntity[]; count: number }> {
+  public async getMany(): Promise<{ rows: GenreEntity[]; count: number }> {
     const res = await axiosInstance.get(this.prefix, {
       params: {
         options: JSON.stringify(this.query),
@@ -38,7 +38,9 @@ export class MusicSerice {
    */
 
   public findOptions(options: any = {}) {
-    this.query = { ...this.query, ...options };
+    this.query = {
+      findOptions: { ...options },
+    };
     return this;
   }
 }

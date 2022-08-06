@@ -17,15 +17,15 @@ const NewMusicSkeletonList = () => {
       }}
     >
       <div className="w-full flex items-center absolute left-0 top-0">
-        <h1 className="text-2xl">New Music</h1>
+        <h1 className="text-2xl">Mới cập nhật</h1>
         <div className="flex-1 h-[4px] border-t-[1px] border-b-[1px] border-text-1 mx-5"></div>
         <SwiperActionInput type="prev" />
         <SwiperActionInput type="next" />
       </div>
       {[1, 2, 3, 4, 5, 6, 7, 9, 10].map((item) => (
         <SwiperSlide key={item}>
-          <div className="h-[150px] md:h-[200px] object-cover rounded-lg overflow-hidden bg-slate-500 opacity-80">
-            <figure className="relative h-[150px] md:h-[200px] overflow-hidden bg-gradient-to-r from-app to-text-2 animate-skeleton opacity-20"></figure>
+          <div className="h-[150px] md:h-[200px] object-cover rounded-lg overflow-hidden bg-slate-500 animate-pulse-opacity">
+            <figure className="relative h-[150px] md:h-[200px] overflow-hidden bg-gradient-to-r from-app to-text-2 animate-pulse-opacity"></figure>
           </div>
         </SwiperSlide>
       ))}

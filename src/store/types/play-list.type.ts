@@ -3,9 +3,11 @@ import {
   DECREMENT_INDEX,
   INCREMENT_INDEX,
   IS_TOGGLE_CONTROL,
+  IS_TOGGLE_PLAY_PLIST_MODAL,
   IS_TOGGLE_REPEAT,
   IS_TOOGLE_PLAY,
   UPDATE_INDEX,
+  UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
 } from "@/constants";
 import { MusicEntity } from "@/entities/music.entity";
 
@@ -40,6 +42,17 @@ interface DecrementInexType {
 interface IsToggleOpenReapeatType {
   type: typeof IS_TOGGLE_REPEAT;
 }
+
+interface IsToggleOpenPlayListModaltType {
+  type: typeof IS_TOGGLE_PLAY_PLIST_MODAL;
+}
+
+interface UpdateIsOpenPlayListModaltType {
+  type: typeof UPDATE_IS_OPEN_PLAY_PLIST_MODAL;
+  payload: {
+    newIsOpen: boolean;
+  };
+}
 export type PlayListActionType =
   | IsToggleOpenControlType
   | ToggleIsPlayType
@@ -47,4 +60,6 @@ export type PlayListActionType =
   | updateIndexType
   | IncrementIndexType
   | DecrementInexType
-  | IsToggleOpenReapeatType;
+  | IsToggleOpenReapeatType
+  | IsToggleOpenPlayListModaltType
+  | UpdateIsOpenPlayListModaltType;

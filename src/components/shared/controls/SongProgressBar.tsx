@@ -40,7 +40,7 @@ const ProgressBar = (
     <div
       ref={progresAreaRef}
       onClick={handleClick}
-      className="progress-area absolute left-0 -top-1 lg:-top-2 w-full progress-area flex-1 h-1 lg:h-2 rounded-lg bg-text-2 cursor-pointer"
+      className="progress-area absolute z-30 left-0 -top-1 lg:-top-2 w-full progress-area flex-1 h-2 rounded-lg bg-text-2 cursor-pointer"
     >
       <div
         ref={progresBarRef}

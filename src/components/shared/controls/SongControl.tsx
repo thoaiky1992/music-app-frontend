@@ -3,6 +3,7 @@ import {
   INCREMENT_INDEX,
   IS_TOOGLE_PLAY,
   IS_TOGGLE_REPEAT,
+  IS_TOGGLE_PLAY_PLIST_MODAL,
 } from "@/constants";
 import { useAppDispatch } from "@/store/configStore";
 import {
@@ -30,13 +31,7 @@ interface SongControlProps {
   isRepeat: boolean;
 }
 
-const SongControl: FC<SongControlProps> = ({
-  isPlay,
-  currentPlayListIndex,
-  playListLength,
-  songTime,
-  isRepeat,
-}) => {
+const SongControl: FC<SongControlProps> = ({ isPlay, songTime, isRepeat }) => {
   const dispatch = useAppDispatch();
 
   /**
@@ -97,7 +92,10 @@ const SongControl: FC<SongControlProps> = ({
           />
         </div>
         <div className="lg:hidden">
-          <RiPlayListFill className="w-4 h-4 lg:w-5 lg:h-5 text-text-2" />
+          <RiPlayListFill
+            className="w-4 h-4 lg:w-5 lg:h-5 text-text-2 cursor-pointer"
+            onClick={() => dispatch({ type: IS_TOGGLE_PLAY_PLIST_MODAL })}
+          />
         </div>
       </div>
     </div>

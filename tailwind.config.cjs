@@ -27,8 +27,41 @@ module.exports = {
         scale_enter: "scale_enter 400ms ease-in-out forwards",
         scale_leave: "scale_leave 300ms ease-in-out forwards",
         skeleton: "skeleton 2s infinite",
+        "translate-y-playlist-modal-enter":
+          "translate-y-playlist-modal-enter 300ms ease-in-out forwards",
+        "translate-y-playlist-modal-leave":
+          "translate-y-playlist-modal-leave 300ms ease-in-out forwards",
+        "pulse-opacity":
+          "pulse-opacity 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
+        "pulse-opacity": {
+          "0%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.5",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+        "translate-y-playlist-modal-enter": {
+          "0%": {
+            transform: "translateX(110%) translateY(-100%) !important",
+          },
+          "100%": {
+            transform: "translateX(0%) translateY(-100%) !important",
+          },
+        },
+        "translate-y-playlist-modal-leave": {
+          "0%": {
+            transform: "translateX(0%) translateY(-100%) !important",
+          },
+          "100%": {
+            transform: "translateX(110%) translateY(-100%) !important",
+          },
+        },
         scale_enter: {
           "0%": {
             opacity: "0",
@@ -90,5 +123,6 @@ module.exports = {
   plugins: [
     require("@tailwindcss/line-clamp"),
     require("@tailwindcss/aspect-ratio"),
+    require("tailwindcss-labeled-groups")(["custom", "1", "2", "3"]),
   ],
 };

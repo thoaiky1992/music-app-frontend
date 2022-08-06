@@ -9,7 +9,10 @@ interface HeaderProps {
 }
 const Header: FC<HeaderProps> = ({ setShowSidebar }) => {
   return (
-    <div className="w-full flex min-h-[80px] h-[80px] bg-primary justify-between items-center px-5">
+    <div
+      className="w-full fixed lg:relative flex min-h-[80px] h-[80px] bg-app justify-between items-center px-5"
+      style={{ zIndex: "9999" }}
+    >
       <div className="lg:hidden flex items-start">
         <HiMenuAlt2
           className="w-8 h-[40px] mr-3"

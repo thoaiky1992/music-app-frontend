@@ -25,6 +25,10 @@ body {
   background-color: #0b1928;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .content::-webkit-scrollbar {
   display: none;
 }
@@ -82,7 +86,9 @@ input[type="checkbox"]:checked:after {
   top: -5px;
   left: 0;
 }
-
+.modal-play-list {
+  box-shadow: -2px -2px 8px #aebed3;
+}
 @media screen and (max-width: 480px) {
   .slider {
     width: 100px;

@@ -5,6 +5,11 @@ import FormikInput from "./FormikInput";
 import * as Yup from "yup";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import { loginUserAction } from "@/store/actions/user.actions";
+import {
+  VALIDATION_EMAIL_INVALID,
+  VALIDATION_EMAIL_REQUIRED,
+  VALIDATION_PASSWORD_REQUIRED,
+} from "@/constants";
 interface IinitialValues {
   email: string;
   password: string;
@@ -23,9 +28,9 @@ const LoginForm: FC<LoginFormProps> = ({
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required("The email is required")
-      .email("Invalid Email format"),
-    password: Yup.string().required("The password is required"),
+      .required(VALIDATION_EMAIL_REQUIRED)
+      .email(VALIDATION_EMAIL_INVALID),
+    password: Yup.string().required(VALIDATION_PASSWORD_REQUIRED),
   });
   const initialValues: IinitialValues = {
     email: "",
@@ -50,23 +55,23 @@ const LoginForm: FC<LoginFormProps> = ({
       {() => (
         <Form>
           <div className="flex flex-row items-center justify-center lg:justify-start">
-            <p className="text-md lg:text-lg mb-0 mr-4 text-white">Sign in</p>
+            <p className="text-md lg:text-lg mb-0 mr-4 text-white">Đăng nhập</p>
           </div>
           {/* Email input */}
           <div className="mb-6 mt-10">
             <FormikInput
               placeholder="Email"
               name="email"
-              className="form-control block w-full px-4 py-2 text-xs lg:text-sm font-normal text-primary bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:ring-high-light focus:ring-1 focus:outline-none"
+              className="block w-full px-4 py-2 text-xs lg:text-sm font-normal text-primary bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:ring-high-light focus:ring-1 focus:outline-none"
             />
           </div>
           {/* Password input */}
           <div className="mb-6">
             <FormikInput
               type={"password"}
-              placeholder="Password"
+              placeholder="Mật khẩu"
               name="password"
-              className="form-control block w-full px-4 py-2 text-xs lg:text-sm font-normal text-primary bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:ring-high-light focus:ring-1 focus:outline-none"
+              className="block w-full px-4 py-2 text-xs lg:text-sm font-normal text-primary bg-white border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:ring-high-light focus:ring-1 focus:outline-none"
             />
           </div>
 
@@ -81,7 +86,7 @@ const LoginForm: FC<LoginFormProps> = ({
                 className="form-check-label inline-block text-xs lg:text-sm text-text-2"
                 htmlFor="exampleCheck2"
               >
-                Remember me
+                Nhớ tài khoản
               </label>
             </div>
           </div>
@@ -91,16 +96,16 @@ const LoginForm: FC<LoginFormProps> = ({
               type="submit"
               className="inline-block px-7 py-2 lg:py-3 bg-high-light text-white font-medium text-xs lg:text-sm leading-snug uppercase rounded shadow-md focus:outline-none"
             >
-              {userStore.loading ? "Loading..." : "Login"}
+              {userStore.loading ? "Đang tải ..." : "Login"}
             </button>
             <div className="text-xs lg:text-sm font-semibold mt-2 pt-1 mb-0 flex items-start text-text-1">
-              Don't have an account ?
+              Bạn có đã có tài khoản chưa ?
               <div
                 onClick={() => handleDirectRegistForm()}
                 className="text-high-light cursor-pointer hover:text-high-light focus:text-red-700 transition duration-200 ease-in-out text-xs lg:text-sm flex items-center"
               >
                 &nbsp; <ArrowNarrowRightIcon className="w-4 h-4 mx-2" />
-                Register
+                Đăng kí
               </div>
             </div>
           </div>

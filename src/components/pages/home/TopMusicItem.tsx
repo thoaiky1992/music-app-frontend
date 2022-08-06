@@ -4,6 +4,7 @@ import { MusicEntity } from "@/entities/music.entity";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import { PauseIcon, PlayIcon } from "@heroicons/react/outline";
 import { FC } from "react";
+import IconPlayingGif from "@/assets/images/icon-playing.gif";
 
 interface TopMusicItemProps {
   song: MusicEntity;
@@ -38,7 +39,7 @@ const TopMusicItem: FC<TopMusicItemProps> = ({ song, index = 0 }) => {
   return (
     <div
       key={song._id}
-      className="top-music-1__item w-full rounded-md bg-third bg-opacity-90 py-3 px-5 flex items-center mt-2 group hover:bg-high-light hover:text-white transition-all ease-in-out duration-200"
+      className="top-music-1__item w-full rounded-md bg-third bg-opacity-90 py-3 px-3 lg:px-5 flex items-center mt-2 group hover:bg-high-light hover:text-white transition-all ease-in-out duration-200"
     >
       <div className="flex-1 flex items-center">
         {playListStore.list[playListStore.index]._id === song._id &&
@@ -54,11 +55,16 @@ const TopMusicItem: FC<TopMusicItemProps> = ({ song, index = 0 }) => {
           />
         )}
         <span className="font-bold group-hover:opacity-0 w-8 group-hover:w-0 h-8 group-hover:h-0 flex justify-center items-center transition-all ease-in-out">
-          {index}
+          {playListStore.list[playListStore.index]._id === song._id &&
+          playListStore.isPlay ? (
+            <img src={IconPlayingGif} className="w-4" />
+          ) : (
+            index
+          )}
         </span>
         <img
           src={song.image}
-          className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] object-cover rounded mx-5"
+          className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] object-cover rounded mx-3 lg:mx-5"
           alt=""
         />
         <div className="flex flex-col justify-between space-y-2">

@@ -1,6 +1,7 @@
 import { FieldHookConfig, useField } from "formik";
 import { ClassAttributes, FC, InputHTMLAttributes } from "react";
 import { FieldProps } from "formik";
+import classNames from "classnames";
 
 interface FormikInputProps {
   type?: string;
@@ -19,11 +20,10 @@ const FormikInput: FC<
         type={type}
         {...field}
         {...props}
-        className={`${props.className} ${
-          meta.touched &&
-          meta.error &&
-          "!border-high-light ring-high-light ring-2"
-        }`}
+        className={classNames(props.className, {
+          "!border-high-light ring-high-light ring-2":
+            meta.touched && meta.error,
+        })}
       />
       {meta.touched && meta.error && (
         <div className="text-high-light text-xs lg:text-xs mt-2">

@@ -7,7 +7,13 @@ import SongInfoLaptop from "./SongInfoLaptop";
 import SongInfoMobile from "./SongInfoMobile";
 import SongVolume from "./SongVolume";
 import SongControl from "./SongControl";
-import { DEFAULT_SONG_TIME, IS_TOOGLE_PLAY } from "@/constants";
+import {
+  DEFAULT_SONG_TIME,
+  IS_TOGGLE_PLAY_PLIST_MODAL,
+  IS_TOOGLE_PLAY,
+} from "@/constants";
+import { HeartIcon } from "@heroicons/react/solid";
+import SongPlayListModal from "./SongPlayListModal";
 
 interface RefObject {
   handleUpdateProgressWith: (percent: number) => void;
@@ -22,6 +28,8 @@ const ControlBar = () => {
   const dispatch = useAppDispatch();
   const playlistStore = useAppSelector((state: RootState) => state.playList);
   const [songTime, setSongTime] = useState<ISongTime>(DEFAULT_SONG_TIME);
+  const [isOpenPlayListModal, setIsOpenPlayListModal] =
+    useState<boolean>(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<RefObject>(null);
@@ -52,7 +60,8 @@ const ControlBar = () => {
    * hanlde Play Song with current index
    */
   const handlePlayCurrentSong = () => {
-    if (audioRef.current) {
+    if (audioRef.current && progressBarRef.current) {
+      progressBarRef.current.handleUpdateProgressWith(0);
       audioRef.current.children[0].setAttribute(
         "src",
         playlistStore.list[playlistStore.index].src
@@ -69,6 +78,7 @@ const ControlBar = () => {
    **/
   useEffect(() => {
     if (playlistStore.list) {
+      setIsOpenPlayListModal(false);
       handlePlayCurrentSong();
     }
   }, [playlistStore.list]);
@@ -149,15 +159,23 @@ const ControlBar = () => {
   return (
     <div
       className={classNames(
-        "h-[150px] md:h-[80px] w-full fixed z-50 bottom-0 left-0 bg-primary flex justify-center shadow shadow-text-2",
+        "h-[150px] md:h-[80px] w-full fixed bottom-0 left-0 bg-primary flex justify-center shadow shadow-text-2",
         { hidden: !playlistStore.isOpenControl }
       )}
+      style={{ zIndex: "999999" }}
     >
       {/* Audio */}
       <audio ref={audioRef} className="hidden">
         <source src="anh-la-cua-em.mp3" />
       </audio>
       {/* End Audio */}
+
+      {/* PlayList Modal */}
+      <SongPlayListModal
+        open={playlistStore.isOpenPlayListModal}
+        songs={playlistStore.list}
+      />
+      {/* End PlayList Modal */}
 
       {/* Progress Bar */}
       <SongProgressBar
@@ -185,8 +203,12 @@ const ControlBar = () => {
               artists={playlistStore.list[playlistStore.index].artists}
               isPlay={playlistStore.isPlay}
             />
-            <div>
-              <SongVolume handleChangeSongVolume={handleChangeSongVolume} />
+            <div className="flex items-center">
+              {/* <SongVolume handleChangeSongVolume={handleChangeSongVolume} /> */}
+              <HeartIcon className="h-5 w-5 text-high-light mr-1" />
+              <span className="text-[18px] mt-1">
+                {playlistStore.list[playlistStore.index].likes}
+              </span>
             </div>
           </div>
           {/* Song Info And Volume (Mobile)  */}
@@ -210,7 +232,10 @@ const ControlBar = () => {
         <div className="hidden lg:flex flex-1 items-center justify-between">
           <SongVolume handleChangeSongVolume={handleChangeSongVolume} />
           <div>
-            <RiPlayListFill className="w-4 h-4 lg:w-5 lg:h-5 text-text-2" />
+            <RiPlayListFill
+              className="w-4 h-4 lg:w-5 lg:h-5 text-text-2 cursor-pointer"
+              onClick={() => dispatch({ type: IS_TOGGLE_PLAY_PLIST_MODAL })}
+            />
           </div>
         </div>
         {/* Volume and PlayList */}
