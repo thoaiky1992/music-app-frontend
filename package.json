@@ -19,6 +19,8 @@
     "@types/node": "^18.0.6",
     "animate.css": "^4.1.1",
     "axios": "^0.27.2",
+    "classnames": "^2.3.1",
+    "formik": "^2.2.9",
     "history": "^5.3.0",
     "path": "^0.12.7",
     "react": "^18.2.0",
@@ -30,7 +32,8 @@
     "react-router-dom": "^6.3.0",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
-    "swiper": "^8.3.2"
+    "swiper": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",

@@ -35,7 +35,7 @@ const Footer = () => {
         <PhoneIcon className="w-5 h-5 mr-3" />
         <h1>077-769-4436</h1>
       </div>
-      <div className="w-full flex items-center mt-2 text-sm justify-center mb-40 lg:mb-20">
+      <div className="w-full flex items-center mt-2 text-sm justify-center mb-60 lg:mb-28">
         <UserIcon className="w-5 h-5 mr-3" />
         <h1>Thực hiện bởi Thoại Kỳ</h1>
       </div>

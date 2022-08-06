@@ -11,9 +11,9 @@ import {
 import { Dialog } from "@headlessui/react";
 import { FC, useRef, useState } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
-import NarutoImg from "@/assets/images/naruto.png";
 import { useStore } from "react-redux";
 import { openModalLoginAction } from "@/store/actions/modal-login.actions";
+import { userLogoutAction } from "@/store/actions/user.actions";
 
 interface DrawerMobileProps {
   showSidebar: boolean;
@@ -72,7 +72,7 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
             {userStore?.user ? (
               <div className="flex flex-col items-center">
                 <img
-                  src={NarutoImg}
+                  src={userStore.user.image}
                   className="h-[60px] w-[60px] object-cover rounded-full border ring ring-high-light"
                   onClick={handleSidebarClose}
                 />
@@ -112,7 +112,10 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
               </div>
 
               {userStore?.user ? (
-                <div className="flex items-center">
+                <div
+                  className="flex items-center"
+                  onClick={() => dispatch(userLogoutAction())}
+                >
                   <LogoutIcon className="w-5 h-5 mr-5" />
                   <h1>Logout</h1>
                 </div>

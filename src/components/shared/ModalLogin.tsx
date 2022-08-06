@@ -27,11 +27,10 @@ const ModalLogin = () => {
       modalLoginFormRef.current?.classList.add("animate-scale_enter");
     }
   }, [modalLoginStore.isOpen]);
-  console.log(isShowLoginForm);
 
   return (
     <div
-      className={`w-screen h-screen fixed z-50 flex justify-center items-center bg-transparent ${
+      className={`w-screen h-screen fixed z-50 flex justify-center modal-login items-center bg-transparent ${
         !modalLoginStore.isOpen && "hidden"
       }`}
     >
@@ -51,6 +50,7 @@ const ModalLogin = () => {
           {isShowLoginForm ? (
             <LoginForm
               handleDirectRegistForm={() => setIsShowLoginForm(() => false)}
+              handleCloseModal={handleCloseModal}
             />
           ) : (
             <RegistForm

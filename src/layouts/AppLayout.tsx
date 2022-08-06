@@ -1,7 +1,7 @@
 import DrawerDesktop from "@/components/partials/DrawerDesktop";
 import DrawerMobile from "@/components/partials/DrawerMobile";
 import Header from "@/components/partials/Header";
-import ControlMusic from "@/components/shared/ControlMusic";
+import ControlBar from "@/components/shared/controls/ControlBar";
 import ModalLogin from "@/components/shared/ModalLogin";
 import { CustomRouteProps } from "@/config/routes";
 import { useState } from "react";
@@ -28,11 +28,11 @@ const AppLayout = (props: CustomRouteProps) => {
       )}
       <div className="flex-1 h-full flex flex-col ">
         <Header setShowSidebar={setShowSidebar} />
-        <div className="flex-1 overflow-y-scroll content p-5 mt-[80px] lg:mt-0">
+        <div className="flex-1 overflow-y-scroll content p-5 lg:mt-0">
           <Outlet />
         </div>
       </div>
-      <ControlMusic />
+      <ControlBar />
       <ModalLogin />
     </div>
   );

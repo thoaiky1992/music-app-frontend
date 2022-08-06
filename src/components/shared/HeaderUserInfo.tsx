@@ -2,9 +2,9 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { LogoutIcon, UserIcon } from "@heroicons/react/outline";
-import NarutoImg from "@/assets/images/naruto.png";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import { openModalLoginAction } from "@/store/actions/modal-login.actions";
+import { userLogoutAction } from "@/store/actions/user.actions";
 const HeaderUserInfo = () => {
   const userStore = useAppSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
@@ -15,11 +15,13 @@ const HeaderUserInfo = () => {
           <div>
             <Menu.Button className="flex items-center cursor-pointer">
               <img
-                src={NarutoImg}
-                className="w-[40px] lg:w-[50px] rounded-full border-2 border-high-light"
+                src={userStore.user.image}
+                className="w-[40px] rounded-full border-2 border-high-light"
                 alt=""
               />
-              <span className="px-2 text-xs lg:text-sm">KySomaio</span>
+              <span className="px-2 text-xs lg:text-sm">
+                {userStore.user.name}
+              </span>
               <ChevronDownIcon className="w-4" />
             </Menu.Button>
           </div>
@@ -49,6 +51,7 @@ const HeaderUserInfo = () => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
+                      onClick={() => dispatch(userLogoutAction())}
                       className={`${
                         active ? "bg-high-light text-white" : "text-text-1"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm transition-all mt-1`}

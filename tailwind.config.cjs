@@ -26,6 +26,7 @@ module.exports = {
         "spin-slow": "spin 3s linear infinite",
         scale_enter: "scale_enter 400ms ease-in-out forwards",
         scale_leave: "scale_leave 300ms ease-in-out forwards",
+        skeleton: "skeleton 2s infinite",
       },
       keyframes: {
         scale_enter: {
@@ -46,6 +47,20 @@ module.exports = {
           "100%": {
             opacity: "0",
             transform: "scale(0) rotate(0deg)",
+          },
+        },
+        skeleton: {
+          "0%": {
+            opacity: 0,
+            left: "0%",
+          },
+          "50%": {
+            opacity: 1,
+            left: "100%",
+          },
+          "100%": {
+            opacity: 0,
+            left: "0%",
           },
         },
       },

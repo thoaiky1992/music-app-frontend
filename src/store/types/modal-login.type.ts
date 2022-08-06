@@ -1,9 +1,9 @@
-import { CLOSE_MODAL, OPEN_MODAL } from "@/constants";
+import { MODAL_CLOSE, MODAL_OPEN } from "@/constants";
 
 interface OpenModalType {
-  type: typeof OPEN_MODAL;
+  type: typeof MODAL_OPEN;
 }
 interface CloseModalType {
-  type: typeof CLOSE_MODAL;
+  type: typeof MODAL_CLOSE;
 }
 export type ModalLoginActionType = OpenModalType | CloseModalType;

@@ -1,4 +1,4 @@
-import { CLOSE_MODAL, OPEN_MODAL } from "@/constants";
+import { MODAL_CLOSE, MODAL_OPEN } from "@/constants";
 import { ModalLoginActionType } from "../types/modal-login.type";
 
 export interface IModalLoginReducer {
@@ -13,9 +13,9 @@ export function ModalLoginReducer(
   action: ModalLoginActionType
 ) {
   switch (action?.type) {
-    case OPEN_MODAL:
+    case MODAL_OPEN:
       return { ...state, isOpen: true };
-    case CLOSE_MODAL:
+    case MODAL_CLOSE:
       return { ...state, isOpen: false };
     default:
       return { ...state };
