@@ -13,7 +13,7 @@ const SongVolume: FC<SongVolumeProps> = ({ handleChangeSongVolume }) => {
   };
 
   return (
-    <div className="w-full flex items-center pl-3">
+    <div className="w-full hidden lg:flex items-center pl-3">
       {volume === 0 ? (
         <BsFillVolumeMuteFill className="w-4 h-4 lg:w-6 lg:h-6 text-text-2 mr-2" />
       ) : (

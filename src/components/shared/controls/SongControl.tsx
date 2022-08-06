@@ -45,7 +45,7 @@ const SongControl: FC<SongControlProps> = ({
   const handlePreOrNextSong = useCallback(
     (type: "next" | "pre") =>
       dispatch({ type: type === "next" ? INCREMENT_INDEX : DECREMENT_INDEX }),
-    [currentPlayListIndex, playListLength]
+    []
   );
 
   return (
