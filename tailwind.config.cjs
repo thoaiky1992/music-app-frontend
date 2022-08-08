@@ -33,8 +33,21 @@ module.exports = {
           "translate-y-playlist-modal-leave 300ms ease-in-out forwards",
         "pulse-opacity":
           "pulse-opacity 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "scale-image": "scale-image 300ms ease-in-out forwards",
       },
       keyframes: {
+        "scale-image": {
+          "0%": {
+            opacity: "0",
+            transform: "scale(1.2)",
+            "transform-origin": "50% 50%",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "scale(1)",
+            "transform-origin": "50% 50%",
+          },
+        },
         "pulse-opacity": {
           "0%": {
             opacity: "1",

@@ -1,7 +1,7 @@
-import { CustomRouteProps } from "@/config/routes";
+import { CustomRoutes } from "@/config/routes";
 import { Outlet } from "react-router-dom";
 
-const DefaultLayout = (props: CustomRouteProps) => {
+const DefaultLayout = (props: CustomRoutes) => {
   return (
     <div>
       <Outlet />

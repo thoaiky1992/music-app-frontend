@@ -27,8 +27,8 @@ const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute z-10 right-0 mt-2 w-40 origin-top-right divide-y rounded-md bg-primary shadow border-t-[1px] border-text-2 shadow-text-1 ring-opacity-5 focus:outline-none">
-          <div className="px-1 py-1 ">
+        <Menu.Items className="absolute z-10 right-0 mt-2 w-[160px] origin-top-right divide-y rounded-md bg-primary shadow-lg border-t-[1px] border-text-2 shadow-text-1 ring-opacity-5 focus:outline-none">
+          <div className="p-1">
             <Menu.Item>
               {({ active }) => (
                 <button
@@ -37,7 +37,7 @@ const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = () => {
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm transition-all duration-200 ease-in-out`}
                 >
                   <DocumentAddIcon className="w-5 mr-2" />
-                  <span className="text-xs">Thên vào Playlist</span>
+                  <span className="text-xs">Thên vào thư viện</span>
                 </button>
               )}
             </Menu.Item>

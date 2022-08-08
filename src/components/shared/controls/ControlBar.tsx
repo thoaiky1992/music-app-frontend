@@ -9,11 +9,16 @@ import SongVolume from "./SongVolume";
 import SongControl from "./SongControl";
 import {
   DEFAULT_SONG_TIME,
+  INCREMENT_INDEX,
   IS_TOGGLE_PLAY_PLIST_MODAL,
   IS_TOOGLE_PLAY,
+  PLAY_LIST_HISTORY,
+  UPDATE_INDEX,
 } from "@/constants";
 import { HeartIcon } from "@heroicons/react/solid";
 import SongPlayListModal from "./SongPlayListModal";
+import { useLocalStorage } from "@/composables/useLocalStorage";
+import { MusicEntity } from "@/entities/music.entity";
 
 interface RefObject {
   handleUpdateProgressWith: (percent: number) => void;
@@ -28,9 +33,7 @@ const ControlBar = () => {
   const dispatch = useAppDispatch();
   const playlistStore = useAppSelector((state: RootState) => state.playList);
   const [songTime, setSongTime] = useState<ISongTime>(DEFAULT_SONG_TIME);
-  const [isOpenPlayListModal, setIsOpenPlayListModal] =
-    useState<boolean>(false);
-
+  const randomList = useRef<Array<number>>([]);
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressBarRef = useRef<RefObject>(null);
 
@@ -71,6 +74,17 @@ const ControlBar = () => {
         audioRef.current.play();
       }
     }
+
+    // scroll to that song position playing ...
+    setTimeout(() => {
+      document
+        .querySelector(
+          `.modal-play-list > .songs > .modal-play-list__item[data-index="${
+            playlistStore.list[playlistStore.index]._id
+          }"]`
+        )
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 200);
   };
 
   /**
@@ -78,7 +92,6 @@ const ControlBar = () => {
    **/
   useEffect(() => {
     if (playlistStore.list) {
-      setIsOpenPlayListModal(false);
       handlePlayCurrentSong();
     }
   }, [playlistStore.list]);
@@ -103,7 +116,7 @@ const ControlBar = () => {
   useEffect(() => {
     if (audioRef.current) {
       /**
-       * get song time when the song just played
+       * get song time when the song just played and save save this song to the playlist history
        **/
       audioRef.current.onplaying = function () {
         if (audioRef.current && audioRef.current.duration) {
@@ -114,6 +127,24 @@ const ControlBar = () => {
             const newSongTime = preTime;
             return { ...newSongTime, allTime: `${minutes}:${seconds}` };
           });
+        }
+
+        // get playlist history and save this song into it
+        const playlistHistoryStorage = useLocalStorage(PLAY_LIST_HISTORY);
+        const playlistHistory: MusicEntity[] = playlistHistoryStorage.getItem();
+        if (playlistHistory && playlistHistory.length) {
+          //  check this song already eixsted in the playlistHistory
+          const flag = playlistHistory.some(
+            (song) => song._id == playlistStore.list[playlistStore.index]._id
+          );
+          if (!flag) {
+            playlistHistory.push(playlistStore.list[playlistStore.index]);
+            playlistHistoryStorage.setItem([...playlistHistory]);
+          }
+        } else {
+          playlistHistoryStorage.setItem([
+            playlistStore.list[playlistStore.index],
+          ]);
         }
       };
 
@@ -145,11 +176,40 @@ const ControlBar = () => {
           dispatch({ type: IS_TOOGLE_PLAY });
 
           /**
-           * hanlde repeat song
+           * handle repeat song
            */
           if (playlistStore.isRepeat) {
             dispatch({ type: IS_TOOGLE_PLAY });
             audioRef.current.play();
+            return;
+          }
+
+          /**
+           * handle random song
+           */
+          if (playlistStore.isRandom && playlistStore.list.length > 1) {
+            let index: number;
+            if (!randomList.current.length) {
+              randomList.current = [playlistStore.index];
+            }
+            // Check random index already existed in the random list
+            do {
+              index = Math.floor(Math.random() * playlistStore.list.length);
+            } while (randomList.current.includes(index));
+
+            randomList.current = [...randomList.current, index];
+            dispatch({ type: UPDATE_INDEX, payload: { newIndex: index } });
+
+            if (randomList.current.length === playlistStore.list.length)
+              randomList.current = [];
+            return;
+          }
+
+          /**
+           * handle next song if length of list is than more 2
+           */
+          if (playlistStore.list.length > 1) {
+            dispatch({ type: INCREMENT_INDEX });
           }
         }
       };
@@ -222,6 +282,7 @@ const ControlBar = () => {
               playListLength={playlistStore.list.length}
               songTime={songTime}
               isRepeat={playlistStore.isRepeat}
+              isRandom={playlistStore.isRandom}
             />
           </div>
 

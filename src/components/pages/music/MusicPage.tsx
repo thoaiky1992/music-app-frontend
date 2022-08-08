@@ -1,21 +1,26 @@
 import SongDetailItem from "@/components/shared/SongDetailItem";
-import { GenreEntity } from "@/entities/genre.entity";
 import { MusicEntity } from "@/entities/music.entity";
-import { FC } from "react";
+import { MusicSerice } from "@/services/music.service";
+import { useEffect, useState } from "react";
 
-interface GenreDetailListProps {
-  songs: Array<MusicEntity>;
-}
+const MusicPage = () => {
+  const [songs, setSongs] = useState<Array<MusicEntity>>([]);
 
-const GenreDetailList: FC<GenreDetailListProps> = ({ songs }) => {
+  useEffect(() => {
+    (async () => {
+      const musicService = MusicSerice.getInstance();
+      const data = await musicService.getMany();
+      setSongs(data.rows);
+    })();
+  }, []);
+
   return (
     <div className="w-full text-text-2">
       <div className="w-full flex items-center">
-        <h1 className="text-xl lg:text-2xl">
-          {(songs[0].genre as GenreEntity).name}
-        </h1>
+        <h1 className="text-xl lg:text-2xl">Bài hát</h1>
         <div className="flex-1 h-[4px] border-t-[1px] border-b-[1px] border-text-1 mx-5"></div>
       </div>
+
       <div className="w-full grid grid-cols-1 lg:grid-cols-3 3xl:grid-cols-4 mt-5">
         {songs.map((song) => (
           <div
@@ -30,4 +35,4 @@ const GenreDetailList: FC<GenreDetailListProps> = ({ songs }) => {
     </div>
   );
 };
-export default GenreDetailList;
+export default MusicPage;

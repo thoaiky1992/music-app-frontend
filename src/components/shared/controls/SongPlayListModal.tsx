@@ -30,7 +30,7 @@ const SongPlayListModal: FC<SongPlayListModalProps> = ({ songs, open }) => {
           <XIcon className="h4 w-4 text-white" />
         </div>
       </div>
-      <div className="top-music-1 flex-1 w-full flex flex-col lg:pr-1 overflow-y-scroll pb-2">
+      <div className="songs flex-1 w-full flex flex-col lg:pr-1 overflow-y-scroll pb-2">
         {songs.map((song: MusicEntity, index: number) => (
           <SongPlayListModalItem key={song._id} song={song} index={index} />
         ))}

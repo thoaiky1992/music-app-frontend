@@ -38,9 +38,7 @@ export class GenreService {
    */
 
   public findOptions(options: any = {}) {
-    this.query = {
-      findOptions: { ...options },
-    };
+    this.query = { ...this.query, ...options };
     return this;
   }
 }

@@ -4,6 +4,7 @@ import {
   INCREMENT_INDEX,
   IS_TOGGLE_CONTROL,
   IS_TOGGLE_PLAY_PLIST_MODAL,
+  IS_TOGGLE_RANDOM,
   IS_TOGGLE_REPEAT,
   IS_TOOGLE_PLAY,
   UPDATE_INDEX,
@@ -24,7 +25,7 @@ interface AddSongToPlayListType {
     songs: Array<MusicEntity>;
   };
 }
-interface updateIndexType {
+interface UpdateIndexType {
   type: typeof UPDATE_INDEX;
   payload: {
     newIndex: number;
@@ -53,13 +54,18 @@ interface UpdateIsOpenPlayListModaltType {
     newIsOpen: boolean;
   };
 }
+
+interface IsToggleRandomType {
+  type: typeof IS_TOGGLE_RANDOM;
+}
 export type PlayListActionType =
   | IsToggleOpenControlType
   | ToggleIsPlayType
   | AddSongToPlayListType
-  | updateIndexType
+  | UpdateIndexType
   | IncrementIndexType
   | DecrementInexType
   | IsToggleOpenReapeatType
   | IsToggleOpenPlayListModaltType
-  | UpdateIsOpenPlayListModaltType;
+  | UpdateIsOpenPlayListModaltType
+  | IsToggleRandomType;

@@ -1,6 +1,10 @@
 import Logo from "@/assets/logo.webp";
-import { DRAWER_LIST, UPDATE_IS_OPEN_PLAY_PLIST_MODAL } from "@/constants";
-import { useAppDispatch } from "@/store/configStore";
+import {
+  DRAWER_LIST,
+  MODAL_OPEN,
+  UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
+} from "@/constants";
+import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import {
   ClipboardListIcon,
   HeartIcon,
@@ -9,9 +13,14 @@ import {
 } from "@heroicons/react/outline";
 import classNames from "classnames";
 import { MdCategory } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const DrawerDesktop = () => {
   const dispatch = useAppDispatch();
+  const userStore = useAppSelector((state: RootState) => state.user);
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
+
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case "home":
@@ -28,6 +37,23 @@ const DrawerDesktop = () => {
         return <HomeIcon className="w-5 h-5 mr-5" />;
     }
   };
+
+  const handleDirect = (href: string, isAuth: boolean) => {
+    if (isAuth && !userStore.user) {
+      dispatch({
+        type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
+        payload: { newIsOpen: false },
+      });
+      dispatch({ type: MODAL_OPEN });
+      return;
+    }
+
+    dispatch({
+      type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
+      payload: { newIsOpen: false },
+    });
+    navigate(href);
+  };
   return (
     <div className="fixed lg:relative lg:flex flex-col w-[250px] bg-primary lg:bg-transparent h-screen shadow-lg shadow-text-1 z-50 text-text-2">
       <div className="w-full flex justify-center py-10">
@@ -38,24 +64,19 @@ const DrawerDesktop = () => {
       </div>
       <div className="w-full px-10 pt-5 flex-1 flex flex-col">
         {DRAWER_LIST.map((item: any, index: number) => (
-          <NavLink
-            onClick={() =>
-              dispatch({
-                type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
-                payload: { newIsOpen: false },
-              })
-            }
+          <div
+            onClick={() => handleDirect(item.href, item.isAuth)}
             key={index}
-            to={item.href}
-            className={({ isActive }) =>
-              classNames("flex items-center mt-10 hover:text-high-light", {
-                "text-high-light": isActive,
-              })
-            }
+            className={classNames(
+              "flex items-center mt-10 hover:text-high-light cursor-pointer",
+              {
+                "text-high-light": item.href == location.pathname,
+              }
+            )}
           >
             {getIcon(item.icon)}
             <div className="mt-[1px]">{item.title}</div>
-          </NavLink>
+          </div>
         ))}
       </div>
     </div>

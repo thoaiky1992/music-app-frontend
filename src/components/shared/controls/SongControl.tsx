@@ -4,6 +4,7 @@ import {
   IS_TOOGLE_PLAY,
   IS_TOGGLE_REPEAT,
   IS_TOGGLE_PLAY_PLIST_MODAL,
+  IS_TOGGLE_RANDOM,
 } from "@/constants";
 import { useAppDispatch } from "@/store/configStore";
 import {
@@ -29,9 +30,15 @@ interface SongControlProps {
   playListLength: number;
   songTime: IsongTime;
   isRepeat: boolean;
+  isRandom: boolean;
 }
 
-const SongControl: FC<SongControlProps> = ({ isPlay, songTime, isRepeat }) => {
+const SongControl: FC<SongControlProps> = ({
+  isPlay,
+  songTime,
+  isRepeat,
+  isRandom,
+}) => {
   const dispatch = useAppDispatch();
 
   /**
@@ -80,7 +87,13 @@ const SongControl: FC<SongControlProps> = ({ isPlay, songTime, isRepeat }) => {
           </div>
         </div>
         <div className="">
-          <FaRandom className="w-4 h-4 lg:w-5 lg:h-5 text-text-2" />
+          <FaRandom
+            className={classNames(
+              "w-4 h-4 lg:w-5 lg:h-5 text-text-2 cursor-pointer",
+              { "text-high-light": isRandom }
+            )}
+            onClick={() => dispatch({ type: IS_TOGGLE_RANDOM })}
+          />
         </div>
         <div className="px-3">
           <TbRepeatOnce

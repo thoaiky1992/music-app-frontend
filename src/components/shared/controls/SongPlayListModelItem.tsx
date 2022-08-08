@@ -47,8 +47,9 @@ const SongPlayListModalItem: FC<SongPlayListModalItemProps> = ({
   return (
     <div
       key={song._id}
+      data-index={song._id}
       className={classNames(
-        "top-music-1__item min-h-[60px] w-full text-text-2 rounded-md bg-third bg-opacity-90 py-3 px-3 lg:px-2 flex items-center mt-2 group transition-all ease-in-out duration-200",
+        "modal-play-list__item min-h-[60px] w-full text-text-2 rounded-md bg-third bg-opacity-90 py-3 px-3 lg:px-2 flex items-center mt-2 group transition-all ease-in-out duration-200",
         {
           "bg-high-light text-white":
             song._id === playListStore.list[playListStore.index]._id,

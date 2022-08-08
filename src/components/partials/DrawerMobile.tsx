@@ -16,8 +16,12 @@ import { openModalLoginAction } from "@/store/actions/modal-login.actions";
 import { userLogoutAction } from "@/store/actions/user.actions";
 import classNames from "classnames";
 import { MdCategory } from "react-icons/md";
-import { DRAWER_LIST, UPDATE_IS_OPEN_PLAY_PLIST_MODAL } from "@/constants";
-import { NavLink } from "react-router-dom";
+import {
+  DRAWER_LIST,
+  MODAL_OPEN,
+  UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
+} from "@/constants";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 interface DrawerMobileProps {
   showSidebar: boolean;
   setShowSidebar: Function;
@@ -31,6 +35,11 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
   const sidebarRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const userStore = useAppSelector((state: RootState) => state.user);
+  const modalLoginStore = useAppSelector(
+    (state: RootState) => state.modalLogin
+  );
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const handleSidebarClose = () => {
     sidebarRef.current?.classList.remove("slideLeftReturn");
@@ -67,19 +76,29 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
     }
   };
 
-  const handleDirection = () => {
+  const handleDirection = (href: string, isAuth: boolean) => {
+    if (isAuth && !userStore.user) {
+      handleSidebarClose();
+      dispatch({
+        type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
+        payload: { newIsOpen: false },
+      });
+      dispatch({ type: MODAL_OPEN });
+      return;
+    }
     handleSidebarClose();
     dispatch({
       type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
       payload: { newIsOpen: false },
     });
+    navigate(href);
   };
 
   return (
     <Dialog open={showSidebar} onClose={handleSidebarClose}>
       <Dialog.Overlay
         ref={overlayRef}
-        className="animate__fadeIn animate__animated animate__faster fixed flex inset-0 z-[99999]"
+        className="animate__fadeIn animate__animated animate__faster fixed flex inset-0 z-[999999]"
         aria-hidden="true"
       >
         <div
@@ -121,20 +140,17 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
           <div className="w-full mx-5 my-5 flex-1 flex flex-col">
             <div className="flex-1 flex flex-col">
               {DRAWER_LIST.map((item: any, index: number) => (
-                <NavLink
-                  onClick={handleDirection}
+                <div
+                  onClick={() => handleDirection(item.href, item.isAuth)}
                   key={index}
-                  to={item.href}
-                  className={({ isActive }) =>
-                    classNames(
-                      "flex items-center my-5 hover:text-high-light outline-none",
-                      { "text-high-light": isActive }
-                    )
-                  }
+                  className={classNames(
+                    "flex items-center my-5 hover:text-high-light outline-none",
+                    { "text-high-light": item.href == location.pathname }
+                  )}
                 >
                   {getIcon(item.icon)}
                   <div className="mt-[1px]">{item.title}</div>
-                </NavLink>
+                </div>
               ))}
               <div className="w-full my-5">
                 <div className="border-b-[1px] border-text-1 w-[80%]"></div>

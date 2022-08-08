@@ -3,12 +3,11 @@ import DrawerMobile from "@/components/partials/DrawerMobile";
 import Header from "@/components/partials/Header";
 import ControlBar from "@/components/shared/controls/ControlBar";
 import ModalLogin from "@/components/shared/ModalLogin";
-import { CustomRouteProps } from "@/config/routes";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Outlet } from "react-router-dom";
 
-const AppLayout = (props: CustomRouteProps) => {
+const AppLayout = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 768 });
 

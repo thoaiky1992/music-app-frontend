@@ -1,33 +1,61 @@
 import GenreDetailPage from "@/components/pages/genre/detail/GenreDetail";
-import GenrePage from "@/components/pages/genre/Genre";
-import Home from "@/components/pages/home/Home";
+import GenrePage from "@/components/pages/genre/GenrePage";
+import HomePage from "@/components/pages/home/HomePage";
+import MusicPage from "@/components/pages/music/MusicPage";
+import SearchMusicPage from "@/components/pages/music/SearchMusicPage";
+import AppLayout from "@/layouts/AppLayout";
 import { ReactElement } from "react";
 
 export enum LayoutTypes {
   APP,
 }
 
-export interface CustomRouteProps {
-  path: string;
+export interface CustomRoutes {
+  path?: string;
   isAuth?: boolean;
   layout?: LayoutTypes;
   element: ReactElement;
+  index?: boolean;
+  children?: CustomRoutes[];
 }
 
-export const RouteList: CustomRouteProps[] = [
+export const RouteList: CustomRoutes[] = [
+  // -----------  Home -----------
   {
     path: "/",
-    element: <Home />,
-    layout: LayoutTypes.APP,
+    element: <AppLayout />,
+    children: [{ index: true, element: <HomePage /> }],
   },
+
+  // ----------- Genre  -----------
   {
-    path: "/the-loai",
-    element: <GenrePage />,
-    layout: LayoutTypes.APP,
+    path: "the-loai",
+    element: <AppLayout />,
+    children: [
+      {
+        index: true,
+        element: <GenrePage />,
+      },
+      {
+        path: ":id",
+        element: <GenreDetailPage />,
+      },
+    ],
   },
+
+  // ----------- Music  -----------
   {
-    path: "/the-loai/:id",
-    element: <GenreDetailPage />,
-    layout: LayoutTypes.APP,
+    path: "bai-hat",
+    element: <AppLayout />,
+    children: [
+      {
+        index: true,
+        element: <MusicPage />,
+      },
+      {
+        path: "search",
+        element: <SearchMusicPage />,
+      },
+    ],
   },
 ];

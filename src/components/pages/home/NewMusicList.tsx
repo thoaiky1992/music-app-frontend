@@ -39,13 +39,6 @@ const NewMusicList: FC<NewMusicListProps> = ({ musics }) => {
     dispatch({ type: IS_TOOGLE_PLAY });
   };
 
-  const addListToPlayList = () => {
-    dispatch({
-      type: ADD_SONG_TO_PLAY_LIST,
-      payload: { songs: musics },
-    });
-  };
-
   return (
     <Swiper
       spaceBetween={10}
@@ -59,9 +52,7 @@ const NewMusicList: FC<NewMusicListProps> = ({ musics }) => {
       }}
     >
       <div className="w-full flex items-center absolute left-0 top-0">
-        <h1 className="text-xl lg:text-2xl" onClick={addListToPlayList}>
-          Mới cập nhật
-        </h1>
+        <h1 className="text-xl lg:text-2xl">Mới cập nhật</h1>
         <div className="flex-1 h-[4px] border-t-[1px] border-b-[1px] border-text-1 mx-5"></div>
         <SwiperActionInput type="prev" />
         <SwiperActionInput type="next" />
@@ -92,11 +83,7 @@ const NewMusicList: FC<NewMusicListProps> = ({ musics }) => {
                       "absolute w-full h-full flex justify-center items-center group-hover:hidden"
                     )}
                   >
-                    <img
-                      src={IconPlayingGif}
-                      className="w-4 h-4 lg:w-8 lg:h-8"
-                      alt=""
-                    />
+                    <img src={IconPlayingGif} className="w-8 h-8" alt="" />
                   </div>
                 )}
               <img

@@ -2,12 +2,27 @@ import { SearchIcon } from "@heroicons/react/outline";
 import HeaderUserInfo from "../shared/HeaderUserInfo";
 import { HiMenuAlt2 } from "react-icons/hi";
 import Logo from "@/assets/logo.webp";
-import { FC } from "react";
+import { ChangeEvent, FC, useState, KeyboardEvent } from "react";
+import { useNavigate } from "react-router";
 
 interface HeaderProps {
   setShowSidebar: Function;
 }
 const Header: FC<HeaderProps> = ({ setShowSidebar }) => {
+  const [keySearch, setKeySearch] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("asdas");
+
+    setKeySearch(e.target.value);
+  };
+  const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === "Enter") {
+      navigate("/bai-hat/search?keySearch=" + keySearch);
+      setKeySearch("");
+    }
+  };
   return (
     <div
       className="w-full fixed lg:relative flex min-h-[80px] h-[80px] bg-app justify-between items-center px-5"
@@ -22,9 +37,12 @@ const Header: FC<HeaderProps> = ({ setShowSidebar }) => {
       </div>
       <div className="search lg:min-w-[400px] lg:max-w-[400px] flex h-full items-center relative">
         <input
-          className="h-[35px] lg:h-[50px] w-[150px] sm:w-[180px] pr-10 lg:pr-12 lg:w-full rounded-full px-5 bg-third text-[8px] lg:text-xs text-text-1 focus:outline-none"
+          className="h-[35px] lg:h-[50px] w-[160px] sm:w-[180px] pr-8 lg:pr-12 lg:w-full rounded-full px-5 bg-third text-[10px] lg:text-xs text-text-1 focus:outline-none"
           type="text"
-          placeholder="Search for Song..."
+          placeholder="Tìm bài hát..."
+          value={keySearch}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         <SearchIcon className="w-3 h-3 lg:w-5 lg:h-5 absolute right-3 lg:right-5 top-50% text-text-1" />
       </div>
