@@ -77,7 +77,7 @@ export function PlayListReducer(
         list: action.payload.songs,
         isOpenControl: true,
         isPlay: true,
-        isOpenPlayListModal: false,
+        isOpenPlayListModal: action.payload.isOpenPlayListModal ? true : false,
         index: 0,
       };
     default:

@@ -19,7 +19,6 @@ const DrawerDesktop = () => {
   const userStore = useAppSelector((state: RootState) => state.user);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
 
   const getIcon = (iconName: string) => {
     switch (iconName) {

@@ -12,17 +12,16 @@ const Header: FC<HeaderProps> = ({ setShowSidebar }) => {
   const [keySearch, setKeySearch] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("asdas");
-
-    setKeySearch(e.target.value);
+  const handleDirection = () => {
+    navigate("/bai-hat/search?keySearch=" + keySearch);
+    setKeySearch("");
   };
   const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
-      navigate("/bai-hat/search?keySearch=" + keySearch);
-      setKeySearch("");
+      handleDirection();
     }
   };
+
   return (
     <div
       className="w-full fixed lg:relative flex min-h-[80px] h-[80px] bg-app justify-between items-center px-5"
@@ -41,10 +40,15 @@ const Header: FC<HeaderProps> = ({ setShowSidebar }) => {
           type="text"
           placeholder="Tìm bài hát..."
           value={keySearch}
-          onChange={handleChange}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setKeySearch(e.target.value)
+          }
           onKeyDown={handleKeyDown}
         />
-        <SearchIcon className="w-3 h-3 lg:w-5 lg:h-5 absolute right-3 lg:right-5 top-50% text-text-1" />
+        <SearchIcon
+          className="w-3 h-3 lg:w-5 lg:h-5 absolute right-3 lg:right-5 top-50% text-text-1 cursor-pointer"
+          onClick={handleDirection}
+        />
       </div>
       <HeaderUserInfo />
     </div>

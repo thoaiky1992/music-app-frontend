@@ -23,6 +23,7 @@ interface AddSongToPlayListType {
   type: typeof ADD_SONG_TO_PLAY_LIST;
   payload: {
     songs: Array<MusicEntity>;
+    isOpenPlayListModal?: boolean;
   };
 }
 interface UpdateIndexType {

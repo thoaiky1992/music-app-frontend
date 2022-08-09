@@ -19,24 +19,21 @@ const SearchMusicPage = () => {
       const data = await musicService
         .findOptions({ where: { $text: { $search: keySearch } } })
         .getMany();
-      if (data.rows.length) {
-        setIsNotExist(false);
-        setSongs(data.rows);
-      } else {
-        setSongs([]);
-        setIsNotExist(true);
-      }
+      setIsNotExist(data.rows.length ? false : true);
+      setSongs(data.rows);
     })();
-  }, [searchParams.get("keySearch")]);
+  }, [keySearch]);
 
   return (
     <div className="w-full text-text-2">
       <div className="w-full flex items-center">
-        <h1 className="text-sm lg:text-2xl">Từ khoá "{keySearch}"</h1>
+        <h1 className="text-sm lg:text-2xl">
+          Tìm bài hát với từ khoá "{keySearch}"
+        </h1>
       </div>
       {isNotExist && (
-        <div className="w-full grid grid-cols-1 lg:grid-cols-3 3xl:grid-cols-4 mt-5 text-sm lg:text-2xl">
-          Bài hát này không tồn tại ...
+        <div className="w-full grid grid-cols-1 lg:grid-cols-3 3xl:grid-cols-4 mt-5 text-sm lg:text-xl">
+          Không tìm thấy ...
         </div>
       )}
 

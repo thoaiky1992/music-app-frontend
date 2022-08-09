@@ -1,19 +1,23 @@
 import DropDownMusicOptions from "@/components/shared/DropdownMusicOptions";
-import { IS_TOOGLE_PLAY, UPDATE_INDEX } from "@/constants";
+import {
+  ADD_SONG_TO_PLAY_LIST,
+  IS_TOOGLE_PLAY,
+  UPDATE_INDEX,
+} from "@/constants";
 import { MusicEntity } from "@/entities/music.entity";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
-import { PlayIcon } from "@heroicons/react/outline";
+import { PauseIcon, PlayIcon, XIcon } from "@heroicons/react/outline";
 import { FC } from "react";
 import IconPlayingGif from "@/assets/images/icon-playing.gif";
 import classNames from "classnames";
 
-interface SongPlayListModalItemProps {
+interface SongPlayListHistoryItemProps {
   song: MusicEntity;
   index?: number;
   isLastItem?: boolean;
 }
 
-const SongPlayListModalItem: FC<SongPlayListModalItemProps> = ({
+const SongPlayListHistoryItem: FC<SongPlayListHistoryItemProps> = ({
   song,
   index = 0,
   isLastItem,
@@ -30,8 +34,8 @@ const SongPlayListModalItem: FC<SongPlayListModalItemProps> = ({
       return dispatch({ type: IS_TOOGLE_PLAY });
     }
     dispatch({
-      type: UPDATE_INDEX,
-      payload: { newIndex: index },
+      type: ADD_SONG_TO_PLAY_LIST,
+      payload: { songs: [song], isOpenPlayListModal: true },
     });
   };
 
@@ -47,7 +51,7 @@ const SongPlayListModalItem: FC<SongPlayListModalItemProps> = ({
       key={song._id}
       data-index={song._id}
       className={classNames(
-        "modal-play-list__item min-h-[60px] w-full text-text-2 rounded-md bg-third bg-opacity-90 py-3 px-3 lg:px-2 flex items-center mt-2 group transition-all ease-in-out duration-200",
+        "modal-play-list__item relative min-h-[60px] w-full text-text-2 rounded-md bg-third bg-opacity-90 py-3 px-3 lg:px-2 flex items-center mt-2 group transition-all ease-in-out duration-200",
         {
           "bg-high-light text-white":
             song._id === playListStore.list[playListStore.index]._id,
@@ -88,9 +92,14 @@ const SongPlayListModalItem: FC<SongPlayListModalItemProps> = ({
         </div>
       </div>
       <div className="flex items-center">
-        <DropDownMusicOptions id={song._id} isVerticalLastItem={isLastItem} />
+        <DropDownMusicOptions
+          id={song._id}
+          isDelete
+          type={"localStorage"}
+          isVerticalLastItem={isLastItem}
+        />
       </div>
     </div>
   );
 };
-export default SongPlayListModalItem;
+export default SongPlayListHistoryItem;

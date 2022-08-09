@@ -7,15 +7,15 @@ import {
   IS_TOGGLE_RANDOM,
 } from "@/constants";
 import { useAppDispatch } from "@/store/configStore";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  PauseIcon,
-  PlayIcon,
-} from "@heroicons/react/outline";
 import { FC, useCallback } from "react";
 import { FaRandom } from "react-icons/fa";
 import { RiPlayListFill } from "react-icons/ri";
+import {
+  IoPlayForward,
+  IoPlayBack,
+  IoPlayCircle,
+  IoPauseCircle,
+} from "react-icons/io5";
 import { TbRepeatOnce } from "react-icons/tb";
 import classNames from "classnames";
 
@@ -57,23 +57,23 @@ const SongControl: FC<SongControlProps> = ({
           className="flex h-10 w-10 rounded-full bg-third justify-center items-center text-white bg-gradient-to-r from-[rgb(255,85,62)] to-[rgb(255,0,101)] cursor-pointer"
           onClick={() => handlePreOrNextSong("pre")}
         >
-          <ChevronLeftIcon className="w-5 h-5" />
+          <IoPlayBack className="w-5 h-5 mr-[2px]" />
         </div>
         <div
-          className="flex h-14 w-14 mx-2 rounded-full bg-third justify-center items-center text-white bg-gradient-to-r from-[rgb(255,85,62)] to-[rgb(255,0,101)] focus:outline-none cursor-pointer"
+          className="flex h-14 w-14 mx-2 outline-none rounded-full bg-third justify-center items-center text-white bg-gradient-to-r from-[rgb(255,85,62)] to-[rgb(255,0,101)] focus:outline-none cursor-pointer"
           onClick={() => dispatch({ type: IS_TOOGLE_PLAY })}
         >
           {isPlay ? (
-            <PauseIcon className="w8 h-8 focus:outline-none" />
+            <IoPauseCircle className="w-8 h-8 focus:outline-none" />
           ) : (
-            <PlayIcon className="w8 h-8 focus:outline-none" />
+            <IoPlayCircle className="w-8 h-8 focus:outline-none" />
           )}
         </div>
         <div
           className="flex h-10 w-10 rounded-full bg-third justify-center items-center text-white bg-gradient-to-r from-[rgb(255,85,62)] to-[rgb(255,0,101)] cursor-pointer"
           onClick={() => handlePreOrNextSong("next")}
         >
-          <ChevronRightIcon className="w-5 h-5" />
+          <IoPlayForward className="w-5 h-5 ml-[2px]" />
         </div>
       </div>
       <div className="flex items-center justify-between flex-1 ml-5">

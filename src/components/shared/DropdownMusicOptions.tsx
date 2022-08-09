@@ -1,16 +1,39 @@
+import { useLocalStorage } from "@/composables/useLocalStorage";
+import { PLAY_LIST_HISTORY } from "@/constants";
+import { MusicEntity } from "@/entities/music.entity";
 import { Menu, Transition } from "@headlessui/react";
 import {
   DocumentAddIcon,
   DotsVerticalIcon,
   HeartIcon,
 } from "@heroicons/react/outline";
+import classNames from "classnames";
 import { FC, Fragment } from "react";
+import { MdDelete } from "react-icons/md";
 
 interface DropDownMusicOptionsProps {
   id: string;
+  isDelete?: boolean;
+  type?: "database" | "localStorage";
+  isVerticalLastItem?: boolean;
 }
 
-const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = () => {
+const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = ({
+  isDelete,
+  type = "database",
+  id,
+  isVerticalLastItem = false,
+}) => {
+  const handleDelete = () => {
+    if (type === "localStorage") {
+      const playPlistStorage = useLocalStorage(PLAY_LIST_HISTORY);
+      const playListHistory: MusicEntity[] = playPlistStorage.getItem();
+      playPlistStorage.setItem(
+        playListHistory.filter((song) => song._id !== id)
+      );
+    }
+  };
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -27,7 +50,13 @@ const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute z-10 right-0 mt-2 w-[160px] origin-top-right divide-y rounded-md bg-primary shadow-lg border-t-[1px] border-text-2 shadow-text-1 ring-opacity-5 focus:outline-none">
+        <Menu.Items
+          static
+          className={classNames(
+            "absolute z-10 right-5 translate-y-[-35%] mt-2 w-[160px] origin-top-right divide-y rounded-md bg-primary shadow-lg border-t-[1px] border-text-2 shadow-text-1 ring-opacity-5 focus:outline-none",
+            { "!translate-y-[-100%]": isVerticalLastItem }
+          )}
+        >
           <div className="p-1">
             <Menu.Item>
               {({ active }) => (
@@ -53,6 +82,21 @@ const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = () => {
                 </button>
               )}
             </Menu.Item>
+            {isDelete && (
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? "bg-high-light text-white" : "text-text-2"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm transition-all mt-1 duration-200 ease-in-out`}
+                    onClick={handleDelete}
+                  >
+                    <MdDelete className="h-5 w-5 mr-2" />
+                    <span className="text-xs">Xoá</span>
+                  </button>
+                )}
+              </Menu.Item>
+            )}
           </div>
         </Menu.Items>
       </Transition>
