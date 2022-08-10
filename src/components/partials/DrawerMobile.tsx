@@ -18,7 +18,7 @@ import classNames from "classnames";
 import { MdCategory } from "react-icons/md";
 import {
   DRAWER_LIST,
-  MODAL_OPEN,
+  LOGIN_MODAL_OPEN,
   UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
 } from "@/constants";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -83,7 +83,7 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
         type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
         payload: { newIsOpen: false },
       });
-      dispatch({ type: MODAL_OPEN });
+      dispatch({ type: LOGIN_MODAL_OPEN });
       return;
     }
     handleSidebarClose();

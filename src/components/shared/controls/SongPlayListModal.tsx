@@ -91,7 +91,7 @@ const SongPlayListModal: FC<SongPlayListModalProps> = ({ songs, open }) => {
                 key={song._id}
                 song={song}
                 index={index}
-                isLastItem={index === songs.length - 1}
+                isLastItem={index === songs.length - 1 && index !== 0}
               />
             ))}
           </Tab.Panel>
@@ -124,7 +124,9 @@ const SongPlayListModal: FC<SongPlayListModalProps> = ({ songs, open }) => {
                     key={song._id}
                     song={song}
                     index={index}
-                    isLastItem={index === playListHistory.length - 1}
+                    isLastItem={
+                      index === playListHistory.length - 1 && index !== 0
+                    }
                   />
                 ))}
               </div>

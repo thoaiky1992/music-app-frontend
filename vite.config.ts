@@ -24,6 +24,10 @@ export default defineConfig({
         target: "http://localhost:4001",
         ws: true,
       },
+      "/socket": {
+        target: "http://localhost:4001",
+        ws: true,
+      },
     },
   },
 });

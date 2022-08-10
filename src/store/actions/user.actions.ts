@@ -1,5 +1,12 @@
+import { useLocalStorage } from "@/composables/useLocalStorage";
 import axiosInstance from "@/config/axios";
-import { USER_ERROR, USER_FETCH, USER_LOADING, USER_LOGOUT } from "@/constants";
+import {
+  ACCESS_TOKEN,
+  USER_ERROR,
+  USER_FETCH,
+  USER_LOADING,
+  USER_LOGOUT,
+} from "@/constants";
 import { Dispatch } from "redux";
 import { ModalLoginActionType } from "../types/modal-login.type";
 import { UserActionType } from "../types/user.type";
@@ -27,11 +34,12 @@ export const loginUserAction =
     handleCloseModal: Function
   ) =>
   async (dispatch: Dispatch<UserActionType | ModalLoginActionType>) => {
+    const tokenStorage = useLocalStorage(ACCESS_TOKEN);
     try {
       dispatch({ type: USER_LOADING });
       const res = await axiosInstance.post("/auth/login", payload);
       if (res.status == 201) {
-        localStorage.setItem("access_token", res.data.access_token);
+        tokenStorage.setItem(JSON.stringify(res.data.access_token));
         const res2 = await axiosInstance.get("/auth/me");
         dispatch({
           type: USER_FETCH,
@@ -56,6 +64,6 @@ export const userLoadingAction = () => (dispatch: Dispatch<UserActionType>) =>
   dispatch({ type: USER_LOADING });
 
 export const userLogoutAction = () => (dispatch: Dispatch<UserActionType>) => {
-  localStorage.removeItem("access_token");
+  useLocalStorage(ACCESS_TOKEN).removeItem();
   dispatch({ type: USER_LOGOUT });
 };

@@ -5,9 +5,9 @@ export const USER_LOGIN = "USER_LOGIN";
 export const USER_ERROR = "USER_ERROR";
 export const USER_LOGOUT = "USER_LOGOUT";
 
-// modal reducer
-export const MODAL_OPEN = "MODAL_OPEN";
-export const MODAL_CLOSE = "MODAL_CLOSE";
+// modal login reducer
+export const LOGIN_MODAL_OPEN = "LOGIN_MODAL_OPEN";
+export const LOGIN_MODAL_CLOSE = "LOGIN_MODAL_CLOSE";
 
 // play list reducer
 export const IS_TOGGLE_CONTROL = "IS_TOGGLE_CONTROL";
@@ -103,3 +103,12 @@ export const REGEX_STRONG_PASSWORD =
 
 // localStorage
 export const PLAY_LIST_HISTORY = "PLAY_LIST_HISTORY";
+export const ACCESS_TOKEN = "access_token";
+
+//socket
+export const SOCKET_LIKE_CREATED = "SOCKET_LIKE_CREATED";
+export const SOCKET_LIKE_DELETED = "SOCKET_LIKE_DELETED";
+export const SOCKET_MY_LIBRARY_ADD_THIS_SONG =
+  "SOCKET_MY_LIBRARY_ADD_THIS_SONG";
+export const SOCKET_MY_LIBRARY_REMOVE_THIS_SONG =
+  "SOCKET_MY_LIBRARY_REMOVE_THIS_SONG";

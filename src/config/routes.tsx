@@ -3,6 +3,7 @@ import GenrePage from "@/components/pages/genre/GenrePage";
 import HomePage from "@/components/pages/home/HomePage";
 import MusicPage from "@/components/pages/music/MusicPage";
 import SearchMusicPage from "@/components/pages/music/SearchMusicPage";
+import MyLibraryPage from "@/components/pages/my_library/MyLibraryPage";
 import AppLayout from "@/layouts/AppLayout";
 import { ReactElement } from "react";
 
@@ -55,6 +56,18 @@ export const RouteList: CustomRoutes[] = [
       {
         path: "search",
         element: <SearchMusicPage />,
+      },
+    ],
+  },
+
+  // ----------- My library  -----------
+  {
+    path: "thu-vien",
+    element: <AppLayout />,
+    children: [
+      {
+        index: true,
+        element: <MyLibraryPage />,
       },
     ],
   },

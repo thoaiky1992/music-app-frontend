@@ -1,3 +1,5 @@
+import { useLocalStorage } from "@/composables/useLocalStorage";
+import { ACCESS_TOKEN } from "@/constants";
 import axios, { AxiosInstance } from "axios";
 import { history } from "./history";
 const axiosInstance: AxiosInstance = axios.create({
@@ -9,8 +11,8 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: any) => {
     // Do something before request is sent
-    const token = localStorage.getItem("access_token");
-    config.headers["Authorization"] = "Bearer " + token;
+    const tokenStorage = useLocalStorage(ACCESS_TOKEN);
+    config.headers["Authorization"] = "Bearer " + tokenStorage.getItem();
     return config;
   },
   (error) => {

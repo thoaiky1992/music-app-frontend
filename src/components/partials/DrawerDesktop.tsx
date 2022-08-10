@@ -1,7 +1,7 @@
 import Logo from "@/assets/logo.webp";
 import {
   DRAWER_LIST,
-  MODAL_OPEN,
+  LOGIN_MODAL_OPEN,
   UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
 } from "@/constants";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
@@ -43,7 +43,7 @@ const DrawerDesktop = () => {
         type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
         payload: { newIsOpen: false },
       });
-      dispatch({ type: MODAL_OPEN });
+      dispatch({ type: LOGIN_MODAL_OPEN });
       return;
     }
 
