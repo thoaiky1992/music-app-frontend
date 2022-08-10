@@ -33,6 +33,25 @@ export class MyLibraryService {
     return res.data;
   }
 
+  /**
+   * get songs by userId
+   * @param userId: string
+   * @returns rows and count
+   */
+
+  public async getSongsByUserId(
+    userId: string
+  ): Promise<{ rows: MyLibraryEntity[]; count: number }> {
+    this.query = { where: { user: userId }, populate: "songs" };
+    const res = await axiosInstance.get(this.prefix, {
+      params: {
+        options: JSON.stringify(this.query),
+      },
+    });
+    this.query = {};
+    return res.data;
+  }
+
   public async checkIsExistThisSong(
     songId: string,
     userId: string

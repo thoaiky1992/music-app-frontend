@@ -7,15 +7,10 @@ import MyLibraryPage from "@/components/pages/my_library/MyLibraryPage";
 import AppLayout from "@/layouts/AppLayout";
 import { ReactElement } from "react";
 
-export enum LayoutTypes {
-  APP,
-}
-
 export interface CustomRoutes {
   path?: string;
-  isAuth?: boolean;
-  layout?: LayoutTypes;
   element: ReactElement;
+  isAuth?: boolean;
   index?: boolean;
   children?: CustomRoutes[];
 }
@@ -67,6 +62,7 @@ export const RouteList: CustomRoutes[] = [
     children: [
       {
         index: true,
+        isAuth: true,
         element: <MyLibraryPage />,
       },
     ],

@@ -1,7 +1,7 @@
-import { ADD_SONG_TO_PLAY_LIST } from "@/constants";
+import { SOCKET_LIKE_CREATED, SOCKET_LIKE_DELETED } from "@/constants";
+import useSocketIOContext from "@/context/socket-io.context";
 import { MusicEntity } from "@/entities/music.entity";
 import { MusicSerice } from "@/services/music.service";
-import { useAppDispatch } from "@/store/configStore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import GenreDetailList from "./GenreDetailList";
@@ -10,20 +10,42 @@ import GenreDetailSkeleton from "./GenreDetailSkeleton";
 const GenreDetailPage = () => {
   const [songs, setSongs] = useState<Array<MusicEntity>>([]);
   const params = useParams();
-  const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState<boolean>(false);
-  const handlePlayAlbum = async (id: string) => {};
+  const { socket } = useSocketIOContext();
 
   useEffect(() => {
     (async () => {
       const musicService = MusicSerice.getInstance();
-      setLoading(true);
-      const data = await musicService
-        .findOptions({ where: { genre: params.id }, populate: "genre" })
-        .getMany();
+      const data = await musicService.getMysicById(String(params.id));
       setSongs(data.rows);
-      setLoading(false);
     })();
+  }, []);
+
+  useEffect(() => {
+    // socket listen event liked
+    socket.on(SOCKET_LIKE_CREATED, (doc) => {
+      setSongs((prevList) =>
+        prevList.map((song) => {
+          if (song._id === doc.song) {
+            song.likes++;
+            return song;
+          }
+          return song;
+        })
+      );
+    });
+
+    // socket listen event unliked
+    socket.on(SOCKET_LIKE_DELETED, (doc) => {
+      setSongs((prevList) =>
+        prevList.map((song) => {
+          if (song._id === doc.song) {
+            song.likes--;
+            return song;
+          }
+          return song;
+        })
+      );
+    });
   }, []);
 
   return (

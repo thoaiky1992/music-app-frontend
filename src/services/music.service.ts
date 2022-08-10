@@ -33,6 +33,25 @@ export class MusicSerice {
   }
 
   /**
+   * get muics by id
+   * @Param id: string
+   * @returns rows and count
+   */
+
+  public async getMysicById(
+    id: string
+  ): Promise<{ rows: MusicEntity[]; count: number }> {
+    this.query = { where: { genre: id }, populate: "genre" };
+    const res = await axiosInstance.get(this.prefix, {
+      params: {
+        options: JSON.stringify(this.query),
+      },
+    });
+    this.query = {};
+    return res.data;
+  }
+
+  /**
    * bind options to query
    * @returns this
    */

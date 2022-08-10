@@ -1,4 +1,4 @@
-import Logo from "@/assets/logo.webp";
+import Logo from "@/assets/logo.png";
 import {
   ChevronLeftIcon,
   ClipboardListIcon,
@@ -94,6 +94,12 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
     navigate(href);
   };
 
+  const handleLogout = () => {
+    handleSidebarClose();
+    dispatch(userLogoutAction());
+    navigate("/");
+  };
+
   return (
     <Dialog open={showSidebar} onClose={handleSidebarClose}>
       <Dialog.Overlay
@@ -157,10 +163,7 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
               </div>
 
               {userStore?.user ? (
-                <div
-                  className="flex items-center"
-                  onClick={() => dispatch(userLogoutAction())}
-                >
+                <div className="flex items-center" onClick={handleLogout}>
                   <LogoutIcon className="w-5 h-5 mr-5" />
                   <h1>Logout</h1>
                 </div>

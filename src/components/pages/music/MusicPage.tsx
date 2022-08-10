@@ -1,17 +1,45 @@
 import SongDetailItem from "@/components/shared/SongDetailItem";
+import { SOCKET_LIKE_CREATED, SOCKET_LIKE_DELETED } from "@/constants";
+import useSocketIOContext from "@/context/socket-io.context";
 import { MusicEntity } from "@/entities/music.entity";
 import { MusicSerice } from "@/services/music.service";
 import { useEffect, useState } from "react";
 
 const MusicPage = () => {
   const [songs, setSongs] = useState<Array<MusicEntity>>([]);
-
+  const { socket } = useSocketIOContext();
   useEffect(() => {
     (async () => {
       const musicService = MusicSerice.getInstance();
       const data = await musicService.getMany();
       setSongs(data.rows);
     })();
+
+    // socket listen event liked
+    socket.on(SOCKET_LIKE_CREATED, (doc) => {
+      setSongs((prevList) =>
+        prevList.map((song) => {
+          if (song._id === doc.song) {
+            song.likes++;
+            return song;
+          }
+          return song;
+        })
+      );
+    });
+
+    // socket listen event unliked
+    socket.on(SOCKET_LIKE_DELETED, (doc) => {
+      setSongs((prevList) =>
+        prevList.map((song) => {
+          if (song._id === doc.song) {
+            song.likes--;
+            return song;
+          }
+          return song;
+        })
+      );
+    });
   }, []);
 
   return (

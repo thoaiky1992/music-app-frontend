@@ -23,7 +23,7 @@ const SongInfoMobile: FC<SongInfoMobileProps> = ({
         alt=""
       />
       <div className="flex flex-col text-text-2 ml-3 space-y-1">
-        <h1 className="text-xs lg:text-lg line-clamp-2">{title}</h1>
+        <h1 className="text-[14px] lg:text-lg line-clamp-2">{title}</h1>
         <h5 className="text-[10px] lg:text-sm"> {artists}</h5>
       </div>
     </div>

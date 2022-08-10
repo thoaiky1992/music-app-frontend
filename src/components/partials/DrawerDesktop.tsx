@@ -1,4 +1,4 @@
-import Logo from "@/assets/logo.webp";
+import Logo from "@/assets/logo.png";
 import {
   DRAWER_LIST,
   LOGIN_MODAL_OPEN,
@@ -69,7 +69,8 @@ const DrawerDesktop = () => {
             className={classNames(
               "flex items-center mt-10 hover:text-high-light cursor-pointer",
               {
-                "text-high-light": item.href == location.pathname,
+                "text-high-light":
+                  location.pathname.split("/")[1] === item.href.split("/")[1],
               }
             )}
           >

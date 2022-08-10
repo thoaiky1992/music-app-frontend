@@ -18,8 +18,8 @@ import { DotsVerticalIcon, HeartIcon } from "@heroicons/react/outline";
 import { HeartIcon as LikedHeartIcon } from "@heroicons/react/solid";
 import classNames from "classnames";
 import { FC, Fragment, useEffect, useState } from "react";
-import { MdDelete, MdAddCircleOutline } from "react-icons/md";
-
+import { MdDelete } from "react-icons/md";
+import { FiFileMinus, FiFilePlus } from "react-icons/fi";
 interface DropDownMusicOptionsProps {
   id: string;
   isDelete?: boolean;
@@ -146,11 +146,11 @@ const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = ({
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm transition-all duration-200 ease-in-out`}
                 >
                   {isAddSong ? (
-                    <MdDelete className="w-5 h-5 mr-2" />
+                    <FiFileMinus className="w-[18px] h-[18px] mr-2" />
                   ) : (
-                    <MdAddCircleOutline className="w-5 h-5 mr-2" />
+                    <FiFilePlus className="w-[18px] h-[18px] mr-2" />
                   )}
-                  <span className="text-xs">
+                  <span className="text-xs ml-[2px]">
                     {isAddSong ? "Xoá khỏi" : "Thêm vào"} thư viện
                   </span>
                 </button>

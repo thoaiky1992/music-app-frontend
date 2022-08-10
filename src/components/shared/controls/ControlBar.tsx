@@ -15,7 +15,6 @@ import {
   PLAY_LIST_HISTORY,
   UPDATE_INDEX,
 } from "@/constants";
-import { HeartIcon } from "@heroicons/react/solid";
 import SongPlayListModal from "./SongPlayListModal";
 import { useLocalStorage } from "@/composables/useLocalStorage";
 import { MusicEntity } from "@/entities/music.entity";
@@ -263,13 +262,6 @@ const ControlBar = () => {
               artists={playlistStore.list[playlistStore.index].artists}
               isPlay={playlistStore.isPlay}
             />
-            <div className="flex items-center">
-              {/* <SongVolume handleChangeSongVolume={handleChangeSongVolume} /> */}
-              <HeartIcon className="h-5 w-5 text-high-light mr-1" />
-              <span className="text-[18px] mt-1">
-                {playlistStore.list[playlistStore.index].likes}
-              </span>
-            </div>
           </div>
           {/* Song Info And Volume (Mobile)  */}
 

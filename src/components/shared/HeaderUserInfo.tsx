@@ -5,9 +5,16 @@ import { LogoutIcon, UserIcon } from "@heroicons/react/outline";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import { openModalLoginAction } from "@/store/actions/modal-login.actions";
 import { userLogoutAction } from "@/store/actions/user.actions";
+import { useNavigate } from "react-router";
 const HeaderUserInfo = () => {
   const userStore = useAppSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(userLogoutAction());
+    navigate("/");
+  };
   return (
     <div className="user-info hidden lg:flex items-center">
       {userStore?.user ? (
@@ -36,7 +43,7 @@ const HeaderUserInfo = () => {
           >
             <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right divide-y rounded-md bg-primary shadow-lg shadow-text-1 border-t-[1px] border-text-1 ring-opacity-5 focus:outline-none">
               <div className="px-1 py-1 ">
-                <Menu.Item>
+                {/* <Menu.Item>
                   {({ active }) => (
                     <button
                       className={`${
@@ -47,11 +54,11 @@ const HeaderUserInfo = () => {
                       Profile
                     </button>
                   )}
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={() => dispatch(userLogoutAction())}
+                      onClick={handleLogout}
                       className={`${
                         active ? "bg-high-light text-white" : "text-text-1"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm transition-all mt-1`}

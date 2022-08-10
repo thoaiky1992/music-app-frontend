@@ -1,5 +1,5 @@
-import Logo from "@/assets/logo.webp";
-import { MailIcon, PhoneIcon, UserIcon } from "@heroicons/react/outline";
+import Logo from "@/assets/logo.png";
+import { MailIcon, UserIcon } from "@heroicons/react/outline";
 
 const Footer = () => {
   return (
@@ -31,13 +31,9 @@ const Footer = () => {
         <MailIcon className="w-5 h-5 mr-3" />
         <h1>thoaiky1992@gmail.com</h1>
       </div>
-      <div className="w-full flex items-center mt-2 text-sm justify-center">
-        <PhoneIcon className="w-5 h-5 mr-3" />
-        <h1>077-769-4436</h1>
-      </div>
       <div className="w-full flex items-center mt-2 text-sm justify-center mb-44 lg:mb-24">
         <UserIcon className="w-5 h-5 mr-3" />
-        <h1>Thực hiện bởi Thoại Kỳ</h1>
+        <h1 className="mt-1">Thực hiện bởi Thoại Kỳ</h1>
       </div>
     </div>
   );

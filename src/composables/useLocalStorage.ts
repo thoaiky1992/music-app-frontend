@@ -4,9 +4,12 @@ export function useLocalStorage(key: string) {
     return JSON.parse(localStorage.getItem(key) as any);
   }
   function setItem(data: any) {
-    data instanceof Array || data instanceof Object
-      ? localStorage.setItem(key, JSON.stringify(data))
-      : localStorage.setItem(key, data);
+    localStorage.setItem(
+      key,
+      data instanceof Array || data instanceof Object
+        ? JSON.stringify(data)
+        : data
+    );
 
     window.dispatchEvent(new Event("storage"));
   }

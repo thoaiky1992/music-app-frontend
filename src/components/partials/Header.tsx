@@ -1,7 +1,7 @@
 import { SearchIcon } from "@heroicons/react/outline";
 import HeaderUserInfo from "../shared/HeaderUserInfo";
 import { HiMenuAlt2 } from "react-icons/hi";
-import Logo from "@/assets/logo.webp";
+import Logo from "@/assets/logo.png";
 import { ChangeEvent, FC, useState, KeyboardEvent } from "react";
 import { useNavigate } from "react-router";
 
