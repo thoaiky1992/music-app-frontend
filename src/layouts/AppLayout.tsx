@@ -3,10 +3,7 @@ import DrawerMobile from "@/components/partials/DrawerMobile";
 import Header from "@/components/partials/Header";
 import ControlBar from "@/components/shared/controls/ControlBar";
 import ModalLogin from "@/components/shared/ModalLogin";
-import { useLocalStorage } from "@/composables/useLocalStorage";
-import { ACCESS_TOKEN } from "@/constants";
 import useSocketIOContext from "@/context/socket-io.context";
-import { RootState, useAppSelector } from "@/store/configStore";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Outlet } from "react-router-dom";
@@ -15,15 +12,11 @@ import { io } from "socket.io-client";
 const AppLayout = () => {
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  const userStore = useAppSelector((state: RootState) => state.user);
   const { setSocket } = useSocketIOContext();
 
   useEffect(() => {
-    if (userStore.user) {
-      const tokenStorage = useLocalStorage(ACCESS_TOKEN);
-      setSocket(() => io({ auth: { token: tokenStorage.getItem() } }));
-    }
-  }, [userStore.user]);
+    setSocket(() => io());
+  }, [] );
 
   return (
     <div

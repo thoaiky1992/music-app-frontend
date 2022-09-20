@@ -82,46 +82,50 @@ const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = ({
         if (isLiked) setIsLike(true);
       })();
 
-      // socket listen event liked
-      socket.on(SOCKET_LIKE_CREATED, (doc: LikeEntity) => {
-        if (doc.user === userStore.user?._id && doc.song === id) {
-          setIsLike(true);
-        }
-      });
-
-      // socket listen event unliked
-      socket.on(SOCKET_LIKE_DELETED, (doc: LikeEntity) => {
-        if (doc.user === userStore.user?._id && doc.song === id) {
-          setIsLike(false);
-        }
-      });
-
-      // socket listen event add this song in to my lirary
-      socket.on(SOCKET_MY_LIBRARY_ADD_THIS_SONG, (doc) => {
-        if (doc.user === userStore.user?._id && doc.songs[0] === id) {
-          setIsAddSong(true);
-        }
-      });
-
-      // socket listen event remove this song in to my lirary
-      socket.on(SOCKET_MY_LIBRARY_REMOVE_THIS_SONG, (doc) => {
-        if (doc.userId === userStore.user?._id && doc.songId === id) {
-          setIsAddSong(false);
-        }
-      });
-
-      // cleanup
-      return () => {
-        socket.off(SOCKET_LIKE_CREATED);
-        socket.off(SOCKET_LIKE_DELETED);
-        socket.off(SOCKET_MY_LIBRARY_ADD_THIS_SONG);
-        socket.off(SOCKET_MY_LIBRARY_REMOVE_THIS_SONG);
-      };
     } else {
       setIsAddSong(false);
       setIsLike(false);
     }
+
   }, [userStore.user, id]);
+
+  useEffect(() => {
+    // socket listen event liked
+    socket.on(SOCKET_LIKE_CREATED, (doc: LikeEntity) => {
+      if (doc.user === userStore.user?._id && doc.song === id) {
+        setIsLike(true);
+      }
+    });
+
+    // socket listen event unliked
+    socket.on(SOCKET_LIKE_DELETED, (doc: LikeEntity) => {
+      if (doc.user === userStore.user?._id && doc.song === id) {
+        setIsLike(false);
+      }
+    });
+
+    // socket listen event add this song in to my lirary
+    socket.on(SOCKET_MY_LIBRARY_ADD_THIS_SONG, (doc) => {
+      if (doc.user === userStore.user?._id && doc.songs[0] === id) {
+        setIsAddSong(true);
+      }
+    });
+
+    // socket listen event remove this song in to my lirary
+    socket.on(SOCKET_MY_LIBRARY_REMOVE_THIS_SONG, (doc) => {
+      if (doc.userId === userStore.user?._id && doc.songId === id) {
+        setIsAddSong(false);
+      }
+    });
+
+    // cleanup
+    return () => {
+      socket.off(SOCKET_LIKE_CREATED);
+      socket.off(SOCKET_LIKE_DELETED);
+      socket.off(SOCKET_MY_LIBRARY_ADD_THIS_SONG);
+      socket.off(SOCKET_MY_LIBRARY_REMOVE_THIS_SONG);
+    };
+  },[])
 
   return (
     <Menu as="div" className="relative inline-block text-left">

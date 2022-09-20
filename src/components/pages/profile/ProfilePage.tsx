@@ -71,8 +71,8 @@ const ProfilePage = () => {
     resetForm: Function
   ) => {
     const formData = new FormData();
-    for (let key in initialValues) {
-      formData.append(key, (initialValues as any)[key]);
+    for (let key in values) {
+      formData.append(key, (values as any)[key]);
     }
     if (file.data) {
       formData.append("file", file.data);

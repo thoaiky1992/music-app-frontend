@@ -1,5 +1,3 @@
-import { useLocalStorage } from "@/composables/useLocalStorage";
-import { ACCESS_TOKEN } from "@/constants";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
@@ -14,9 +12,7 @@ interface SocketIOContextProps {
 const SocketIOContext = createContext<SocketIOContextType | null>(null);
 
 export const SocketIOContextProvider = ({ children }: SocketIOContextProps) => {
-  const tokenStorage = useLocalStorage(ACCESS_TOKEN);
   const [socket, setSocket] = useState<Socket>(io());
-  socket.auth = { token: tokenStorage.getItem() };
   socket.connect();
   const value = { socket, setSocket };
   return (

@@ -29,7 +29,7 @@ const SongPlayListModal: FC<SongPlayListModalProps> = ({ songs, open }) => {
   const handleUpdateLocalStorage = () => {
     const list = playListStorage.getItem();
     setPlayListHistory(list);
-    if (!list.length) playListStorage.removeItem();
+    if (list && !list.length) playListStorage.removeItem();
   };
 
   /**
