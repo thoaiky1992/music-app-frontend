@@ -65,6 +65,13 @@ const MyLibraryPage = () => {
         })
       );
     });
+
+    // cleanup
+    return () => {
+      socket.off(SOCKET_MY_LIBRARY_REMOVE_THIS_SONG);
+      socket.off(SOCKET_LIKE_CREATED);
+      socket.off(SOCKET_LIKE_DELETED);
+    };
   }, []);
 
   return (

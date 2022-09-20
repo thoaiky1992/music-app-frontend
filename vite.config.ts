@@ -14,15 +14,12 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "http://localhost:4001",
-        ws: true,
       },
       "/images": {
         target: "http://localhost:4001",
-        ws: true,
       },
       "/music": {
         target: "http://localhost:4001",
-        ws: true,
       },
       "/socket": {
         target: "http://localhost:4001",

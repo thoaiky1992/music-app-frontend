@@ -4,6 +4,7 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import Logo from "@/assets/logo.png";
 import { ChangeEvent, FC, useState, KeyboardEvent } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   setShowSidebar: Function;
@@ -32,7 +33,13 @@ const Header: FC<HeaderProps> = ({ setShowSidebar }) => {
           className="w-8 h-[40px] mr-3"
           onClick={() => setShowSidebar(true)}
         />
-        <img src={Logo} className="w-[120px] h-[40px] object-contain " alt="" />
+        <Link to={"/"}>
+          <img
+            src={Logo}
+            className="w-[120px] h-[40px] object-contain "
+            alt=""
+          />
+        </Link>
       </div>
       <div className="search lg:min-w-[400px] lg:max-w-[400px] flex h-full items-center relative">
         <input

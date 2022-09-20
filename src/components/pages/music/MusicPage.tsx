@@ -40,6 +40,12 @@ const MusicPage = () => {
         })
       );
     });
+
+    // cleanup
+    return () => {
+      socket.off(SOCKET_LIKE_CREATED);
+      socket.off(SOCKET_LIKE_DELETED);
+    };
   }, []);
 
   return (

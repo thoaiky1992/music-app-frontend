@@ -8,8 +8,9 @@ import {
   LogoutIcon,
   MusicNoteIcon,
 } from "@heroicons/react/outline";
+import { HiArrowNarrowRight } from "react-icons/hi";
 import { Dialog } from "@headlessui/react";
-import { FC, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import { useStore } from "react-redux";
 import { openModalLoginAction } from "@/store/actions/modal-login.actions";
@@ -21,7 +22,7 @@ import {
   LOGIN_MODAL_OPEN,
   UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
 } from "@/constants";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 interface DrawerMobileProps {
   showSidebar: boolean;
   setShowSidebar: Function;
@@ -77,20 +78,17 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
   };
 
   const handleDirection = (href: string, isAuth: boolean) => {
-    if (isAuth && !userStore.user) {
-      handleSidebarClose();
-      dispatch({
-        type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
-        payload: { newIsOpen: false },
-      });
-      dispatch({ type: LOGIN_MODAL_OPEN });
-      return;
-    }
-    handleSidebarClose();
     dispatch({
       type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
       payload: { newIsOpen: false },
     });
+
+    if (isAuth && !userStore.user) {
+      handleSidebarClose();
+      dispatch({ type: LOGIN_MODAL_OPEN });
+      return;
+    }
+    handleSidebarClose();
     navigate(href);
   };
 
@@ -131,13 +129,22 @@ const DrawerMobile: FC<DrawerMobileProps> = ({
                   onClick={handleSidebarClose}
                 />
                 <h1 className="mt-2">{userStore?.user.name}</h1>
+                <span
+                  className="text-xs flex items-centers mt-1"
+                  onClick={() => handleDirection("/thong-tin-tai-khoan", true)}
+                >
+                  <HiArrowNarrowRight className="w-4 h-4 mr-1" />
+                  Hồ sơ
+                </span>
               </div>
             ) : (
-              <img
-                src={Logo}
-                className="h-[60px] w-[100%] px-10 object-contain"
-                onClick={handleSidebarClose}
-              />
+              <Link to={"/"}>
+                <img
+                  src={Logo}
+                  className="h-[60px] w-[100%] px-10 object-contain"
+                  onClick={handleSidebarClose}
+                />
+              </Link>
             )}
           </div>
           <div className="w-full flex justify-center">

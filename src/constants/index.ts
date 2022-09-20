@@ -1,3 +1,5 @@
+export const DEFAULT = "default";
+
 // user reducer
 export const USER_FETCH = "USER_FETCH";
 export const USER_LOADING = "USER_LOADING";

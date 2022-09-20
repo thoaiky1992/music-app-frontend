@@ -1,5 +1,6 @@
 import { useLocalStorage } from "@/composables/useLocalStorage";
 import {
+  DEFAULT,
   LOGIN_MODAL_OPEN,
   PLAY_LIST_HISTORY,
   SOCKET_LIKE_CREATED,
@@ -66,12 +67,13 @@ const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = ({
   };
 
   useEffect(() => {
-    if (userStore.user) {
+    if (userStore.user && id && id !== DEFAULT) {
       const _user = userStore.user;
       (async () => {
         // check user already existed this song
         const isLiked = await likeService.getOne(id, _user._id);
         // check this song already existed in my library
+
         const isExistLibrary = await myLiraryService.checkIsExistThisSong(
           id,
           _user._id
@@ -107,11 +109,19 @@ const DropDownMusicOptions: FC<DropDownMusicOptionsProps> = ({
           setIsAddSong(false);
         }
       });
+
+      // cleanup
+      return () => {
+        socket.off(SOCKET_LIKE_CREATED);
+        socket.off(SOCKET_LIKE_DELETED);
+        socket.off(SOCKET_MY_LIBRARY_ADD_THIS_SONG);
+        socket.off(SOCKET_MY_LIBRARY_REMOVE_THIS_SONG);
+      };
     } else {
       setIsAddSong(false);
       setIsLike(false);
     }
-  }, [userStore.user]);
+  }, [userStore.user, id]);
 
   return (
     <Menu as="div" className="relative inline-block text-left">

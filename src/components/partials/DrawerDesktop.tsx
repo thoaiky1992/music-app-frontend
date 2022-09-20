@@ -38,20 +38,11 @@ const DrawerDesktop = () => {
   };
 
   const handleDirect = (href: string, isAuth: boolean) => {
-    if (isAuth && !userStore.user) {
-      dispatch({
-        type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
-        payload: { newIsOpen: false },
-      });
-      dispatch({ type: LOGIN_MODAL_OPEN });
-      return;
-    }
-
     dispatch({
       type: UPDATE_IS_OPEN_PLAY_PLIST_MODAL,
       payload: { newIsOpen: false },
     });
-    navigate(href);
+    navigate(isAuth && !userStore.user ? "/dang-nhap" : href);
   };
   return (
     <div className="fixed lg:relative lg:flex flex-col w-[250px] bg-primary lg:bg-transparent h-screen shadow-lg shadow-text-1 z-50 text-text-2">
