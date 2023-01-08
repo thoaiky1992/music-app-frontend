@@ -17,9 +17,7 @@ const GenreList: FC<GenreListProps> = ({ genres }) => {
   const handlePlayAlbum = async (id: string) => {
     const musicService = MusicSerice.getInstance();
     setLoading(true);
-    const data = await musicService
-      .findOptions({ where: { genre: id } })
-      .getMany();
+    const data = await musicService.findOptions({ where: { genre: id } }).getMany();
     dispatch({ type: ADD_SONG_TO_PLAY_LIST, payload: { songs: data.rows } });
     setLoading(false);
   };
@@ -46,9 +44,7 @@ const GenreList: FC<GenreListProps> = ({ genres }) => {
                 onClick={() => handlePlayAlbum(genre._id)}
               >
                 <PlayIcon className="w-5 h-5 mr-2 text-text-2 group-1-hover:text-white transition-all ease-in-out duration-200" />
-                <span className="text-sm">
-                  {loading ? "Đang tải ..." : "Phát Album"}
-                </span>
+                <span className="text-sm">{loading ? "Đang tải ..." : "Phát Album"}</span>
               </div>
               <Link
                 to={"/the-loai/" + genre._id}

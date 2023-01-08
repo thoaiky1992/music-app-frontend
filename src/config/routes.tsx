@@ -2,6 +2,7 @@ import GenreDetailPage from "@/components/pages/genre/detail/GenreDetail";
 import GenrePage from "@/components/pages/genre/GenrePage";
 import HomePage from "@/components/pages/home/HomePage";
 import LoginPage from "@/components/pages/login/LoginPage";
+import MusicDetailPage from "@/components/pages/music/MusicDetail";
 import MusicPage from "@/components/pages/music/MusicPage";
 import SearchMusicPage from "@/components/pages/music/SearchMusicPage";
 import MyLibraryPage from "@/components/pages/my_library/MyLibraryPage";
@@ -55,6 +56,10 @@ export const RouteList: CustomRoutes[] = [
         path: "search",
         element: <SearchMusicPage />,
       },
+      {
+        path: ":id",
+        element: <MusicDetailPage />,
+      },
     ],
   },
 
@@ -84,7 +89,7 @@ export const RouteList: CustomRoutes[] = [
     ],
   },
 
-  // ----------- Login  -----------
+  // ----------- Register  -----------
   {
     path: "dang-ky",
     element: <AppLayout />,
@@ -97,7 +102,7 @@ export const RouteList: CustomRoutes[] = [
     ],
   },
 
-  // ----------- Login  -----------
+  // ----------- Info  -----------
   {
     path: "thong-tin-tai-khoan",
     element: <AppLayout />,

@@ -3,11 +3,7 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { RootState, useAppDispatch, useAppSelector } from "@/store/configStore";
 import { loginUserAction } from "@/store/actions/user.actions";
-import {
-  VALIDATION_EMAIL_INVALID,
-  VALIDATION_EMAIL_REQUIRED,
-  VALIDATION_PASSWORD_REQUIRED,
-} from "@/constants";
+import { VALIDATION_EMAIL_INVALID, VALIDATION_EMAIL_REQUIRED, VALIDATION_PASSWORD_REQUIRED } from "@/constants";
 import FormikInput from "@/components/shared/FormikInput";
 import { Link, useNavigate } from "react-router-dom";
 interface IinitialValues {
@@ -21,9 +17,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .required(VALIDATION_EMAIL_REQUIRED)
-      .email(VALIDATION_EMAIL_INVALID),
+    email: Yup.string().required(VALIDATION_EMAIL_REQUIRED).email(VALIDATION_EMAIL_INVALID),
     password: Yup.string().required(VALIDATION_PASSWORD_REQUIRED),
   });
   const initialValues: IinitialValues = {
@@ -31,11 +25,7 @@ const LoginPage = () => {
     password: "",
     rememberMe: false,
   };
-  const handleSubmit = async (
-    values: IinitialValues,
-    setErrors: Function,
-    resetForm: Function
-  ) => {
+  const handleSubmit = async (values: IinitialValues, setErrors: Function, resetForm: Function) => {
     dispatch(loginUserAction(values, setErrors, resetForm, null, navigate));
   };
   return (
@@ -57,9 +47,7 @@ const LoginPage = () => {
           </div>
           <Form className="flex-1 mt-5 lg:mt-0 lg:ml-10">
             <div className="flex flex-row items-center justify-center lg:justify-start">
-              <p className="text-md lg:text-lg mb-0 mr-4 text-white">
-                Đăng nhập
-              </p>
+              <p className="text-md lg:text-lg mb-0 mr-4 text-white">Đăng nhập</p>
             </div>
             {/* Email input */}
             <div className="mb-6 mt-5 lg:mt-10">
@@ -86,10 +74,7 @@ const LoginPage = () => {
                   type={"checkbox"}
                   className="relative form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:text-white checked:bg-high-light checked:border-high-light focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 />
-                <label
-                  className="form-check-label inline-block text-xs lg:text-sm text-text-2"
-                  htmlFor="exampleCheck2"
-                >
+                <label className="form-check-label inline-block text-xs lg:text-sm text-text-2" htmlFor="exampleCheck2">
                   Nhớ tài khoản
                 </label>
               </div>
