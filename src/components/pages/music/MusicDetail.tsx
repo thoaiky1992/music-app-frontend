@@ -39,7 +39,7 @@ const MusicDetailPage = () => {
 
       <div className="w-full flex flex-col md:flex-row mt-5">
         <div className="flex lg:w-[450px] relative mt-2">{song && <MusicDetailItem song={song} />}</div>
-        <div className="flex flex-col lg:flex-1 w-full mt-10 lg:mt-0">
+        <div className="flex flex-col lg:flex-1 w-full mt-5 lg:mt-0">
           <div className="w-full grid grid-cols-1 lg:pl-5">
             {topMusics.length ? <TopMusicList isHiddenIconPlay={true} songs={topMusics} /> : <TopMusicSkeleton />}
           </div>
