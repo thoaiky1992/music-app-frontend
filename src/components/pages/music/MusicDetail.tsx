@@ -39,7 +39,6 @@ const MusicDetailPage = () => {
 
       if (music.count > 0) {
         const song = music.rows[0];
-        console.log(song);
         setSong(song);
         setHeadData({
           title: song.title,
