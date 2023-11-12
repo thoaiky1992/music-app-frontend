@@ -14,8 +14,8 @@ const MusicDetailPage = () => {
   const [headData, setHeadData] = useState<CustomHeadType>({
     title: "",
     description: "",
-    url: "",
-    iamgePath: "",
+    url: URL,
+    iamgePath: "/banner.png",
   });
   const musicService = MusicSerice.getInstance();
 
