@@ -114,3 +114,5 @@ export const SOCKET_MY_LIBRARY_ADD_THIS_SONG =
   "SOCKET_MY_LIBRARY_ADD_THIS_SONG";
 export const SOCKET_MY_LIBRARY_REMOVE_THIS_SONG =
   "SOCKET_MY_LIBRARY_REMOVE_THIS_SONG";
+
+export const URL = "https://music.thoaiky.com";

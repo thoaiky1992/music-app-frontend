@@ -13,16 +13,16 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "http://localhost:4001",
+        target: "http://159.223.50.115:4001",
       },
       "/images": {
-        target: "http://localhost:4001",
+        target: "http://159.223.50.115:4001",
       },
       "/music": {
-        target: "http://localhost:4001",
+        target: "http://159.223.50.115:4001",
       },
       "/socket": {
-        target: "http://localhost:4001",
+        target: "http://159.223.50.115:4001",
         ws: true,
       },
     },

@@ -5,10 +5,18 @@ import { useNavigate, useParams } from "react-router";
 import MusicDetailItem from "./MusicDetailItem";
 import TopMusicList from "../home/TopMusicList";
 import TopMusicSkeleton from "../home/TopMusicSkeleton";
+import { CustomHead, CustomHeadType } from "@/components/shared/CustomHead";
+import { URL } from "@/constants";
 
 const MusicDetailPage = () => {
   const [song, setSong] = useState<MusicEntity | null>(null);
   const [topMusics, setTopMusics] = useState<MusicEntity[]>([]);
+  const [headData, setHeadData] = useState<CustomHeadType>({
+    title: "",
+    description: "",
+    url: "",
+    iamgePath: "",
+  });
   const musicService = MusicSerice.getInstance();
 
   const router = useParams();
@@ -19,34 +27,58 @@ const MusicDetailPage = () => {
   useEffect(() => {
     (async () => {
       const [topMusics, music] = await Promise.all([
-        musicService.findOptions({ sort: [["views", -1]], skip: 0, limit: 5 }).getMany(),
-        musicService.findOptions({ where: { slug }, sort: [["createdAt", -1]] }).getMany(),
+        musicService
+          .findOptions({ sort: [["views", -1]], skip: 0, limit: 5 })
+          .getMany(),
+        musicService
+          .findOptions({ where: { slug }, sort: [["createdAt", -1]] })
+          .getMany(),
       ]);
 
       setTopMusics(topMusics.rows);
 
-      if (music.count > 0) setSong(music.rows[0]);
-      else navigate("/");
+      if (music.count > 0) {
+        const song = music.rows[0];
+        console.log(song);
+        setSong(song);
+        setHeadData({
+          title: song.title,
+          iamgePath: song.image,
+          description: song.title,
+          url: URL,
+        });
+      } else {
+        navigate("/");
+      }
     })();
   }, [slug]);
 
   return (
-    <div className="w-full text-text-2">
-      <div className="w-full flex items-center">
-        <h1 className="text-xl lg:text-2xl">Bài hát</h1>
-        <div className="flex-1 h-[4px] border-t-[1px] border-b-[1px] border-text-1 mx-5"></div>
-      </div>
+    <>
+      <CustomHead {...headData} />
+      <div className="w-full text-text-2">
+        <div className="w-full flex items-center">
+          <h1 className="text-xl lg:text-2xl">Bài hát</h1>
+          <div className="flex-1 h-[4px] border-t-[1px] border-b-[1px] border-text-1 mx-5"></div>
+        </div>
 
-      <div className="w-full flex flex-col md:flex-row mt-5">
-        <div className="flex lg:w-[450px] relative mt-2">{song && <MusicDetailItem song={song} />}</div>
-        <div className="flex flex-col lg:flex-1 w-full mt-5 lg:mt-0">
-          <div className="w-full grid grid-cols-1 lg:pl-5">
-            {topMusics.length ? <TopMusicList isHiddenIconPlay={true} songs={topMusics} /> : <TopMusicSkeleton />}
+        <div className="w-full flex flex-col md:flex-row mt-5">
+          <div className="flex lg:w-[450px] relative mt-2">
+            {song && <MusicDetailItem song={song} />}
+          </div>
+          <div className="flex flex-col lg:flex-1 w-full mt-5 lg:mt-0">
+            <div className="w-full grid grid-cols-1 lg:pl-5">
+              {topMusics.length ? (
+                <TopMusicList isHiddenIconPlay={true} songs={topMusics} />
+              ) : (
+                <TopMusicSkeleton />
+              )}
+            </div>
           </div>
         </div>
+        <div className="w-full pb-48 lg:pb-24"></div>
       </div>
-      <div className="w-full pb-48 lg:pb-24"></div>
-    </div>
+    </>
   );
 };
 export default MusicDetailPage;
