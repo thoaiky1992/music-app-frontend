@@ -54,7 +54,9 @@ const MusicDetailPage = () => {
 
   return (
     <>
-      <CustomHead {...headData} />
+      {!!headData.title && !!headData.description && !!headData.iamgePath && (
+        <CustomHead {...headData} />
+      )}
       <div className="w-full text-text-2">
         <div className="w-full flex items-center">
           <h1 className="text-xl lg:text-2xl">Bài hát</h1>
