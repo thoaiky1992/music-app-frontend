@@ -5,18 +5,10 @@ import { useNavigate, useParams } from "react-router";
 import MusicDetailItem from "./MusicDetailItem";
 import TopMusicList from "../home/TopMusicList";
 import TopMusicSkeleton from "../home/TopMusicSkeleton";
-import { CustomHead, CustomHeadType } from "@/components/shared/CustomHead";
-import { URL } from "@/constants";
 
 const MusicDetailPage = () => {
   const [song, setSong] = useState<MusicEntity | null>(null);
   const [topMusics, setTopMusics] = useState<MusicEntity[]>([]);
-  const [headData, setHeadData] = useState<CustomHeadType>({
-    title: "",
-    description: "",
-    url: URL,
-    iamgePath: "/banner.png",
-  });
   const musicService = MusicSerice.getInstance();
 
   const router = useParams();
@@ -40,12 +32,6 @@ const MusicDetailPage = () => {
       if (music.count > 0) {
         const song = music.rows[0];
         setSong(song);
-        setHeadData({
-          title: song.title,
-          iamgePath: song.image,
-          description: song.title,
-          url: URL,
-        });
       } else {
         navigate("/");
       }
@@ -54,7 +40,6 @@ const MusicDetailPage = () => {
 
   return (
     <>
-      <CustomHead {...headData} />
       <div className="w-full text-text-2">
         <div className="w-full flex items-center">
           <h1 className="text-xl lg:text-2xl">Bài hát</h1>
